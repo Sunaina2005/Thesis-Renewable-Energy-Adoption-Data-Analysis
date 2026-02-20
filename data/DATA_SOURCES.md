@@ -121,11 +121,12 @@ CO₂ emissions dropped due to excessive missingness (>60%)
 
 File Organization in Analysis
 Once downloaded, organize files as:
+
 data/
- ├── IRENA_Electricity_Installed_Capacity_Solar_PV_Wind_2000_2023.csv
- ├── WorldBank_WDI_Core_Indicators_2000_2023.csv
- ├── REC_2021_Datapack.xlsx
- └── EI-Stats-Review-ALL-data.xlsx
+├── IRENA_Electricity_Installed_Capacity_Solar_PV_Wind_2000_2023.csv
+├── WorldBank_WDI_Core_Indicators_2000_2023.csv
+├── REC_2021_Datapack.xlsx
+└── EI-Stats-Review-ALL-data.xlsx
 
 Data Licensing & Attribution
 IRENA: Open access under Creative Commons Attribution license (CC BY 4.0)
