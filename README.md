@@ -57,8 +57,8 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 - XGBoost: Powerful but prone to overfitting on short series
 
 **Country Typologies:**
-- Developed Leaders (Germany, Denmark)
-- Emerging Giants (China, India, Brazil)
+- Developed Leaders (high-income, high-adoption countries)
+- Emerging Giants (rapid growth)
 - Resource-Rich Laggards (moderate income, slow adoption)
 - Developing Strivers (low income, financing constraints)
 
