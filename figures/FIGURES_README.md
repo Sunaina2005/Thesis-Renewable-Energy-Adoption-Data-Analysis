@@ -152,7 +152,7 @@ SHAP Dependence Plot
 
 How to Embed Figures in README
 If you want to show these figures directly in your main README, use this markdown syntax:
-![Global Renewable Capacity Trends](Global%20Renewable%20Energy%20Capacity%20Trends.jpg)
+![Global Renewable Capacity Trends](figures/Global%20Renewable%20Energy%20Capacity%20Trends.jpg)
 
 *Figure 1: Global renewable electricity capacity growth by technology (2000-2023)*
 Note: GitHub will automatically display .jpg and .png images when referenced this way.
