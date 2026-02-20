@@ -16,7 +16,7 @@ Grid connection: On-grid only
 Download Instructions:
 
 Go to the IRENA Statistics portal
-Navigate to "Query" → "Electricity Capacity and Generation"
+Navigate to "Query" → "Electricity Capacity and Generation" 
 Select "Installed Capacity" from the data type dropdown
 Choose technologies: Solar PV, Onshore Wind, Offshore Wind
 Select all countries and years 2000-2023
