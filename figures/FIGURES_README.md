@@ -155,7 +155,9 @@ All VIF values well below conventional threshold of 5 (except constant, which is
 Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 
 Organization by Chapter
+
 Chapter 4.2 - Descriptive and Exploratory Analysis
+
 
 Global Renewable Energy Capacity Trends
 Economic Development and Renewable Energy Adoption
