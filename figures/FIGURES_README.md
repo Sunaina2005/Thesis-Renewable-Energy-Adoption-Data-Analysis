@@ -26,6 +26,7 @@ Confirms positive correlations between economic indicators (GDP, population) and
 Used in: Chapter 4, Section 4.2 (Exploratory Data Analysis)
 
 
+
 **2. Data & Panel Construction**
 
 Filename: Data & Panel Construction.jpg
@@ -37,6 +38,7 @@ Key Insight:
 Documents the final dataset structure: 211 countries × 24 years = 5,064 observations. Shows complete variable coverage after data cleaning and imputation procedures. Demonstrates data quality and readiness for econometric analysis.
 
 Used in: Chapter 3 (Methodology) and Chapter 4, Section 4.1 (Overview of Analytical Pipeline)
+
 
 
 **3. Descriptive Statistics Output**
@@ -52,6 +54,7 @@ Mean renewable capacity significantly exceeds median, revealing heavily right-sk
 Used in: Chapter 4, Section 4.2 (Descriptive and Exploratory Results)
 
 
+
 **4. Economic Development and Renewable Energy Adoption**
 
 Filename: Economic Development and Renewable Energy Adoption.jpg
@@ -63,6 +66,7 @@ Key Insight:
 Clear positive correlation between economic development and renewable adoption. Higher-income countries consistently show higher capacity levels, supporting regression findings that GDP is a primary driver. Visual evidence of the wealth-capacity relationship before formal econometric testing.
 
 Used in: Chapter 4, Section 4.2 (Exploratory Data Analysis)
+
 
 
 **5. FE vs RE Comparison Table**
@@ -78,6 +82,7 @@ Hausman test p-value below 0.05 confirms Fixed Effects is the statistically appr
 Used in: Chapter 4, Section 4.3 (Econometric Results - Model Selection)
 
 
+
 **6. Fixed Effects Summary**
 
 Filename: Fixed Effects summary.jpg
@@ -89,6 +94,7 @@ Key Insight:
 Main econometric model controlling for time-invariant country characteristics. All key predictors (GDP per capita, population, electricity access) are statistically significant at p<0.001 level. Within R-squared of 0.47 indicates model explains 47% of within-country variation over time. Energy use shows negative coefficient, suggesting fossil fuel dependency creates inertia.
 
 Used in: Chapter 4, Section 4.3 (Main Econometric Results)
+
 
 
 **7. Forecast Accuracy Table**
@@ -104,6 +110,7 @@ ARIMA demonstrates most consistent performance across all three countries with l
 Used in: Chapter 4, Section 4.4 (Forecasting Results - Performance Evaluation)
 
 
+
 **8. Forecast Comparison - Germany**
 
 Filename: Forecast Comparison - Germany.jpg
@@ -115,6 +122,7 @@ Key Insight:
 ARIMA tracks Germany's smooth, stable growth trend most accurately. Prophet slightly overshoots but captures trend well. XGBoost visibly underfits, showing limitations on stable, predictable time series. Germany represents a mature, developed renewable energy market with consistent policy support.
 
 Used in: Chapter 4, Section 4.4 (Forecasting Results)
+
 
 
 **9. Forecast Comparison - India**
@@ -130,6 +138,7 @@ Prophet performs best for India's accelerating, non-linear growth pattern. ARIMA
 Used in: Chapter 4, Section 4.4 (Forecasting Results)
 
 
+
 **10. Forecast Comparison - USA**
 
 Filename: Forecast Comparison - USA.jpg
@@ -141,6 +150,7 @@ Key Insight:
 Intermediate case between Germany's stability and India's volatility. ARIMA remains most consistent performer. XGBoost shows highest forecast error. USA represents large, diverse energy market with mixed state-level policies creating moderate growth trajectory.
 
 Used in: Chapter 4, Section 4.4 (Forecasting Results)
+
 
 
 **11. Global Renewable Energy Capacity Trends**
@@ -156,6 +166,7 @@ Demonstrates steep acceleration in renewable deployment after 2010, driven prima
 Used in: Chapter 4, Section 4.2 (Descriptive and Exploratory Results)
 
 
+
 **12. Global Trends Table Output**
 
 Filename: Global Trends Table Output.jpg
@@ -167,6 +178,7 @@ Key Insight:
 Quantifies the magnitude of renewable growth. Solar PV increased from approximately 1,000 MW in 2000 to over 1,000,000 MW by 2023—a roughly 1,000-fold increase in 24 years. Wind capacity also showed multi-fold growth. Numerical data supports visual trend analysis.
 
 Used in: Chapter 4, Section 4.2 (Descriptive Results)
+
 
 
 **13. Pooled OLS Summary**
@@ -182,6 +194,7 @@ Baseline specification ignoring country-level heterogeneity. R-squared of 0.595 
 Used in: Chapter 4, Section 4.3 (Econometric Results - Baseline Comparison)
 
 
+
 **14. Random Effects Summary**
 
 Filename: Random Effects summary.jpg
@@ -193,6 +206,7 @@ Key Insight:
 Alternative panel specification tested but rejected by Hausman test. Overall R-squared (0.5589) higher than Fixed Effects but this masks failure to properly control for correlation between unobserved effects and predictors. Coefficient estimates differ from Fixed Effects, particularly for population and energy use. Shown for methodological transparency and formal model comparison.
 
 Used in: Chapter 4, Section 4.3 (Econometric Results - Model Comparison)
+
 
 
 **15. SHAP Dependence Plot**
@@ -208,6 +222,7 @@ Reveals non-linear relationship between GDP and renewable capacity predictions. 
 Used in: Chapter 4, Section 4.5 (Explainability Results) and Chapter 5 (Discussion)
 
 
+
 **16. SHAP Summary Plot**
 
 Filename: SHAP Summary Plot.jpg
@@ -219,6 +234,7 @@ Key Insight:
 GDP per capita dominates feature importance by massive margin, far exceeding all other predictors. Energy use per capita shows negative SHAP values (high energy use reduces predicted capacity). Population and electricity access have smaller but positive contributions. Confirms economic development is primary driver even in complex machine learning model, not just in linear regression.
 
 Used in: Chapter 4, Section 4.5 (Explainability Results)
+
 
 
 **17. Top Countries Output**
@@ -234,6 +250,7 @@ China leads by enormous margin with over 1 million MW, followed by USA (286,000 
 Used in: Chapter 4, Section 4.2 (Descriptive and Exploratory Results)
 
 
+
 **18. VIF Output**
 
 Filename: VIF Output.jpg
@@ -245,6 +262,7 @@ Key Insight:
 All VIF values well below conventional threshold of 5 (except constant, which is not concerning). Log GDP per capita has highest VIF at 3.95 but still acceptable. Confirms no problematic multicollinearity among predictors. Each variable contributes independently to model without excessive correlation issues. Validates regression model stability and reliability of coefficient estimates.
 
 Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
+
 
 
 ### Organization by Chapter
@@ -261,6 +279,7 @@ Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 - Top Countries Output
 
 - Global Trends Table Output
+  
 
 **Chapter 4.3 - Econometric Modeling**
 
@@ -276,6 +295,7 @@ Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 
 - VIF Output
 
+
 **Chapter 4.4 - Forecasting Results**
 
 - Forecast Comparison - Germany
@@ -285,6 +305,7 @@ Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 - Forecast Comparison - USA
 
 - Forecast Accuracy Table
+
 
 **Chapter 4.5 - Explainability Analysis**
 
@@ -311,9 +332,11 @@ Master's Thesis, IU International University of Applied Sciences.
 **To embed in Markdown (e.g., README.md):**
 
 markdown![Figure Title](figures/Filename.jpg)
+
 *Caption: Brief description*
 
 **To embed in HTML:**
+
 html<img src="figures/Filename.jpg" alt="Figure Title" width="800">
 <p><em>Caption: Brief description</em></p>
 
