@@ -5,11 +5,14 @@ This folder contains all key visualizations and outputs from the Master's thesis
 ## Overview
 
 **Total Figures:** 18
+
 **Format:** JPG (screenshots from Jupyter Notebook outputs)
+
 **Source:** Analysis conducted in Python using pandas, statsmodels, scikit-learn, and visualization libraries
+
 **Thesis:** Modelling and Forecasting Global Renewable Energy Adoption | Sunaina Manjunath | IU International University
 
-Complete Figure List
+**Complete Figure List**
 1. Correlation Matrix
 Filename: Correlation Matrix.jpg
 Description:
@@ -154,7 +157,7 @@ Key Insight:
 All VIF values well below conventional threshold of 5 (except constant, which is not concerning). Log GDP per capita has highest VIF at 3.95 but still acceptable. Confirms no problematic multicollinearity among predictors. Each variable contributes independently to model without excessive correlation issues. Validates regression model stability and reliability of coefficient estimates.
 Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 
-Organization by Chapter
+**Organization by Chapter**
 ### Chapter 4.2 - Descriptive and Exploratory Analysis
 
 - Global Renewable Energy Capacity Trends
@@ -200,7 +203,7 @@ Organization by Chapter
 - SHAP Dependence Plot
 
 
-How to Use These Figures
+**How to Use These Figures**
 ### Viewing
 
 All figures are JPG format and can be viewed in any image viewer or browser.
@@ -208,58 +211,86 @@ All figures are JPG format and can be viewed in any image viewer or browser.
 ### Citing
 
 If using these visualizations, please cite:
+
 Manjunath, S. (2025). Modelling and Forecasting Global Renewable Energy Adoption: 
 A Data-Driven Analysis of Causal and Predictive Patterns Using Authoritative Sources. 
 Master's Thesis, IU International University of Applied Sciences.
-Embedding in Documents
+
+### Embedding in Documents
+
 To embed in Markdown (e.g., README.md):
+
 markdown![Figure Title](figures/Filename.jpg)
 *Caption: Brief description*
-To embed in HTML:
+
+### To embed in HTML:
 html<img src="figures/Filename.jpg" alt="Figure Title" width="800">
 <p><em>Caption: Brief description</em></p>
 
-Regenerating Figures
+**Regenerating Figures**
 All figures can be regenerated from the Jupyter Notebook analysis:
 
-Open Sunaina_Thesis_Data_Analysis.ipynb
-Run all cells in sequence
-Figures are generated as inline outputs
-Right-click any figure → Save image as PNG (higher quality than screenshots)
+- Open Sunaina_Thesis_Data_Analysis.ipynb
+
+- Run all cells in sequence
+
+- Figures are generated as inline outputs
+
+- Right-click any figure → Save image as PNG (higher quality than screenshots)
 
 Regenerating ensures figures reflect any updated data or methodology changes.
 
-Technical Details
-Image Format: JPG (screenshots)
-Recommended Format for Web: PNG (better quality, no compression artifacts)
-Typical Resolution: 1920x1080 or higher
-Color Space: RGB
-Compression: Medium (balance between quality and file size)
-Optimization for GitHub:
+**Technical Details**
 
-Current JPG files work well for web display
-GitHub automatically optimizes image loading
-File sizes under 5MB load quickly
+**Image Format:** JPG (screenshots)
+
+**Recommended Format for Web:** PNG (better quality, no compression artifacts)
+
+**Typical Resolution:** 1920x1080 or higher
+
+**Color Space:** RGB
+
+**Compression:** Medium (balance between quality and file size)
+
+### Optimization for GitHub:
+
+- Current JPG files work well for web display
+
+- GitHub automatically optimizes image loading
+
+- File sizes under 5MB load quickly
 
 
-License and Usage
+### License and Usage
+
 These figures are outputs from academic research conducted for a Master's thesis at IU International University of Applied Sciences.
-Permitted Use:
 
-Academic and educational purposes
-Personal portfolio and job applications
-Research presentations and publications (with citation)
+### Permitted Use:
 
-Attribution Required:
+- Academic and educational purposes
+
+- Personal portfolio and job applications
+
+- Research presentations and publications (with citation)
+
+### Attribution Required:
+
 Please credit: Sunaina Manjunath, IU International University (2025)
-Commercial Use:
+
+### Commercial Use:
+
 Contact author for permissions regarding commercial use.
 
-Contact
+### Contact
+
 For questions about these visualizations or access to underlying data:
+
 Author: Sunaina Manjunath
+
 Email: sunainamgowda@gmail.com
+
 LinkedIn: www.linkedin.com/in/sunainamanjunath/
+
 GitHub Repository: https://github.com/Sunaina2005/Thesis-Renewable-Energy-Adoption-Data-Analysis
 
 Last Updated: January 2025
