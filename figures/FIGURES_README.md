@@ -240,7 +240,7 @@ Contact
 For questions about these visualizations or access to underlying data:
 Author: Sunaina Manjunath
 Email: sunainamgowda@gmail.com
-LinkedIn: www.linkedin.com/in/sunainamanjunath/
+LinkedIn: [Your LinkedIn URL]
 GitHub Repository: https://github.com/Sunaina2005/Thesis-Renewable-Energy-Adoption-Data-Analysis
 
 Last Updated: January 2025
