@@ -1,10 +1,8 @@
 Figures and Visualizations
-
 This folder contains all key visualizations and outputs from the Master's thesis analysis on global renewable energy adoption (2000-2023).
 
 Overview
-
-Total Figures: 18 
+Total Figures: 18
 Format: JPG (screenshots from Jupyter Notebook outputs)
 Source: Analysis conducted in Python using pandas, statsmodels, scikit-learn, and visualization libraries
 Thesis: Modelling and Forecasting Global Renewable Energy Adoption | Sunaina Manjunath | IU International University
@@ -155,9 +153,7 @@ All VIF values well below conventional threshold of 5 (except constant, which is
 Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 
 Organization by Chapter
-
 Chapter 4.2 - Descriptive and Exploratory Analysis
-
 
 Global Renewable Energy Capacity Trends
 Economic Development and Renewable Energy Adoption
@@ -242,7 +238,7 @@ Contact author for permissions regarding commercial use.
 
 Contact
 For questions about these visualizations or access to underlying data:
-Author: Sunaina Manjunath 
+Author: Sunaina Manjunath
 Email: sunainamgowda@gmail.com
 LinkedIn: www.linkedin.com/in/sunainamanjunath/
 GitHub Repository: https://github.com/Sunaina2005/Thesis-Renewable-Energy-Adoption-Data-Analysis
