@@ -27,17 +27,25 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 ## Methodology
 
 **Data Sources:**
+
 - IRENA: Renewable capacity statistics (solar PV, onshore/offshore wind)
+
 - World Bank WDI: GDP, population, electricity access, energy use
+
 - REN21: Policy indicators
+
 - Energy Institute: Cross-validation data
 
 *Analytical Pipeline:*
-1.⁠ ⁠Data cleaning and panel construction (211 countries × 24 years = 5,064 observations)
-2.⁠ ⁠Fixed Effects panel regression for causal inference
-3.⁠ ⁠Time-series forecasting (ARIMA, Prophet, XGBoost)
-4.⁠ ⁠K-Means clustering with PCA
-5.⁠ ⁠SHAP analysis for model explainability
+- ⁠Data cleaning and panel construction (211 countries × 24 years = 5,064 observations)
+
+- ⁠ ⁠Fixed Effects panel regression for causal inference
+
+-⁠ ⁠Time-series forecasting (ARIMA, Prophet, XGBoost)
+
+-⁠ ⁠K-Means clustering with PCA
+
+-⁠ ⁠SHAP analysis for model explainability
 
 *Tools:* Python 3.10 (pandas, statsmodels, linearmodels, scikit-learn, xgboost, shap, prophet)
 
@@ -46,28 +54,40 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 ## Key Findings
 
 *Drivers of Adoption:*
-•⁠  ⁠GDP per capita: +10% GDP → +7.5% renewable capacity
-•⁠  ⁠Population size: Positive scale effect
-•⁠  ⁠Electricity access: Infrastructure readiness matters
-•⁠  ⁠Energy intensity: High fossil fuel use slows transition
+
+- ⁠GDP per capita: +10% GDP → +7.5% renewable capacity
+
+- ⁠Population size: Positive scale effect
+
+- ⁠Electricity access: Infrastructure readiness matters
+
+- ⁠Energy intensity: High fossil fuel use slows transition
 
 *Forecasting Performance:*
-•⁠  ⁠ARIMA: Most consistent (MAPE 0.2-2%)
-•⁠  ⁠Prophet: Best for non-linear growth patterns
-•⁠  ⁠XGBoost: Powerful but prone to overfitting on short series
+
+- ⁠ARIMA: Most consistent (MAPE 0.2-2%)
+
+- ⁠Prophet: Best for non-linear growth patterns
+
+- ⁠XGBoost: Powerful but prone to overfitting on short series
 
 *Country Typologies:*
-•⁠  ⁠Developed Leaders (high-income, high-adoption countries)
-•⁠  ⁠Emerging Giants (rapid growth)
-•⁠  ⁠Resource-Rich Laggards (moderate income, slow adoption)
-•⁠  ⁠Developing Strivers (low income, financing constraints)
+- ⁠Developed Leaders (high-income, high-adoption countries)
+
+- Emerging Giants (rapid growth)
+
+- ⁠Resource-Rich Laggards (moderate income, slow adoption)
+
+- ⁠Developing Strivers (low income, financing constraints)
 
 ---
 
 ## Repository Contents
 
 •⁠  ⁠⁠ Sunaina_Thesis_Data_Analysis.ipynb ⁠ - Complete analytical pipeline
+
 •⁠  ⁠⁠ Master Thesis github.pdf ⁠ - Full thesis document
+
 •⁠  ⁠⁠ requirements.txt ⁠ - Python dependencies
 
 ---
