@@ -1,8 +1,10 @@
 Figures and Visualizations
+
 This folder contains all key visualizations and outputs from the Master's thesis analysis on global renewable energy adoption (2000-2023).
 
 Overview
-Total Figures: 18
+
+Total Figures: 18 
 Format: JPG (screenshots from Jupyter Notebook outputs)
 Source: Analysis conducted in Python using pandas, statsmodels, scikit-learn, and visualization libraries
 Thesis: Modelling and Forecasting Global Renewable Energy Adoption | Sunaina Manjunath | IU International University
