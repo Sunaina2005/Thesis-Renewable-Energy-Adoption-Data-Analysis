@@ -41,11 +41,11 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 
 - ⁠ ⁠Fixed Effects panel regression for causal inference
 
--⁠ ⁠Time-series forecasting (ARIMA, Prophet, XGBoost)
+- Time-series forecasting (ARIMA, Prophet, XGBoost)
 
--⁠ ⁠K-Means clustering with PCA
+- ⁠K-Means clustering with PCA
 
--⁠ ⁠SHAP analysis for model explainability
+- ⁠SHAP analysis for model explainability
 
 *Tools:* Python 3.10 (pandas, statsmodels, linearmodels, scikit-learn, xgboost, shap, prophet)
 
