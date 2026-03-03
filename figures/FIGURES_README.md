@@ -1,11 +1,13 @@
-Figures and Visualizations
+## Figures and Visualizations
+
 This folder contains all key visualizations and outputs from the Master's thesis analysis on global renewable energy adoption (2000-2023).
 
-Overview
-Total Figures: 18
-Format: JPG (screenshots from Jupyter Notebook outputs)
-Source: Analysis conducted in Python using pandas, statsmodels, scikit-learn, and visualization libraries
-Thesis: Modelling and Forecasting Global Renewable Energy Adoption | Sunaina Manjunath | IU International University
+## Overview
+
+**Total Figures:** 18
+**Format:** JPG (screenshots from Jupyter Notebook outputs)
+**Source:** Analysis conducted in Python using pandas, statsmodels, scikit-learn, and visualization libraries
+**Thesis:** Modelling and Forecasting Global Renewable Energy Adoption | Sunaina Manjunath | IU International University
 
 Complete Figure List
 1. Correlation Matrix
@@ -153,41 +155,58 @@ All VIF values well below conventional threshold of 5 (except constant, which is
 Used in: Chapter 4, Section 4.3 (Econometric Diagnostics)
 
 Organization by Chapter
-Chapter 4.2 - Descriptive and Exploratory Analysis
+### Chapter 4.2 - Descriptive and Exploratory Analysis
 
-Global Renewable Energy Capacity Trends
-Economic Development and Renewable Energy Adoption
-Correlation Matrix
-Descriptive Statistics Output
-Top Countries Output
-Global Trends Table Output
+- Global Renewable Energy Capacity Trends
 
-Chapter 4.3 - Econometric Modeling
+- Economic Development and Renewable Energy Adoption
 
-Data & Panel Construction
-Pooled OLS Summary
-Fixed Effects Summary
-Random Effects Summary
-FE vs RE Comparison Table
-VIF Output
+- Correlation Matrix
 
-Chapter 4.4 - Forecasting Results
+- Descriptive Statistics Output
 
-Forecast Comparison - Germany
-Forecast Comparison - India
-Forecast Comparison - USA
-Forecast Accuracy Table
+- Top Countries Output
 
-Chapter 4.5 - Explainability Analysis
+- Global Trends Table Output
 
-SHAP Summary Plot
-SHAP Dependence Plot
+### Chapter 4.3 - Econometric Modeling
+
+- Data & Panel Construction
+
+- Pooled OLS Summary
+
+- Fixed Effects Summary
+
+- Random Effects Summary
+
+- FE vs RE Comparison Table
+
+- VIF Output
+
+### Chapter 4.4 - Forecasting Results
+
+- Forecast Comparison - Germany
+
+- Forecast Comparison - India
+
+- Forecast Comparison - USA
+
+- Forecast Accuracy Table
+
+### Chapter 4.5 - Explainability Analysis
+
+- SHAP Summary Plot
+
+- SHAP Dependence Plot
 
 
 How to Use These Figures
-Viewing
-All figures are JPG format and can be viewed in any image viewer or browser. Double-click any file to open.
-Citing
+### Viewing
+
+All figures are JPG format and can be viewed in any image viewer or browser.
+
+### Citing
+
 If using these visualizations, please cite:
 Manjunath, S. (2025). Modelling and Forecasting Global Renewable Energy Adoption: 
 A Data-Driven Analysis of Causal and Predictive Patterns Using Authoritative Sources. 
