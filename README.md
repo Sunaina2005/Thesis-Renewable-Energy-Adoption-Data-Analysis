@@ -119,6 +119,6 @@ This work is available for academic and educational purposes. For commercial use
 
 ## Acknowledgments
 
-Thesis completed under the supervision of Prof. Dr. Uma Santhosh Tumpala at IU International University of Applied Sciences.
+Thesis completed under the supervision of Lecturer Uma Santhosh Tumpala at IU International University of Applied Sciences.
 
 Data sources: IRENA, World Bank, REN21, Energy Institute
