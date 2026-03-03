@@ -17,20 +17,20 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 
 ## Research Objectives
 
-1.⁠ ⁠Identify economic and demographic drivers of renewable energy capacity growth
-2.⁠ ⁠Compare forecasting models (ARIMA, Prophet, XGBoost) for prediction accuracy
-3.⁠ ⁠Apply explainable AI (SHAP) to interpret machine learning predictions
-4.⁠ ⁠Cluster countries into adoption typologies based on structural characteristics
+1. Identify economic and demographic drivers of renewable energy capacity growth
+2. Compare forecasting models (ARIMA, Prophet, XGBoost) for prediction accuracy
+3. Apply explainable AI (SHAP) to interpret machine learning predictions
+4. Cluster countries into adoption typologies based on structural characteristics
 
 ---
 
 ## Methodology
 
-*Data Sources:*
-•⁠  ⁠IRENA: Renewable capacity statistics (solar PV, onshore/offshore wind)
-•⁠  ⁠World Bank WDI: GDP, population, electricity access, energy use
-•⁠  ⁠REN21: Policy indicators
-•⁠  ⁠Energy Institute: Cross-validation data
+**Data Sources:**
+- IRENA: Renewable capacity statistics (solar PV, onshore/offshore wind)
+- World Bank WDI: GDP, population, electricity access, energy use
+- REN21: Policy indicators
+- Energy Institute: Cross-validation data
 
 *Analytical Pipeline:*
 1.⁠ ⁠Data cleaning and panel construction (211 countries × 24 years = 5,064 observations)
