@@ -7,7 +7,16 @@
 
 ---
 
-![Renewable Energy Adoption Analysis](figures/Global Renewable Energy Capacity Trends.png)
+![Renewable Energy Adoption Analysis](figures/Global%20Renewable%20Energy%20Capacity%20Trends.jpg)
+
+---
+
+![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=flat&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white)
+![License](https://img.shields.io/badge/License-Academic-blue?style=flat)
 
 ---
 
@@ -100,7 +109,7 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 
 1.⁠ ⁠Clone the repository:
 ⁠ bash
-git clone https://github.com/YOUR_USERNAME/renewable-energy-adoption-thesis.git
+git clone https://github.com/Sunaina2005/Thesis-Renewable-Energy-Adoption-Data-Analysis.git
  ⁠
 
 2.⁠ ⁠Install dependencies:
@@ -138,6 +147,9 @@ This work is available for academic and educational purposes. For commercial use
 ## Contact
 
 *LinkedIn:* https://www.linkedin.com/in/sunainamanjunath/
+*Live Dashboard:* https://sunaina2005.github.io/Thesis-Renewable-Energy-Adoption-Data-Analysis/
+*Portfolio:* https://sunaina-manjunath-portfolio.netlify.app
+*Email:* sunainamgowda@gmail.com
 
 ---
 
