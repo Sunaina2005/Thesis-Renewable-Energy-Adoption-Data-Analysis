@@ -7,6 +7,10 @@
 
 ---
 
+![Renewable Energy Adoption Analysis](figures/Global Renewable Energy Capacity Trends.jpg)
+
+---
+
 ## Overview
 
 This thesis analyzes renewable energy adoption patterns across 211 countries from 2000-2023, combining econometric analysis with machine learning to both explain drivers and predict future trends.
