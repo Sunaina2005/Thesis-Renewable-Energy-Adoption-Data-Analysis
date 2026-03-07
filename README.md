@@ -7,7 +7,7 @@
 
 ---
 
-![Renewable Energy Adoption Analysis](figures/Global Renewable Energy Capacity Trends.jpg)
+![Renewable Energy Adoption Analysis](figures/Global Renewable Energy Capacity Trends.png)
 
 ---
 
