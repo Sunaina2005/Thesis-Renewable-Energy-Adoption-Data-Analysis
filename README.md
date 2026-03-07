@@ -5,8 +5,6 @@
 *Program:* M.Sc. Computer Science  
 *Year:* 2025
 
----
-
 ![Renewable Energy Adoption Analysis](figures/Global%20Renewable%20Energy%20Capacity%20Trends.jpg)
 
 ---
@@ -97,11 +95,11 @@ This thesis analyzes renewable energy adoption patterns across 211 countries fro
 
 ## Repository Contents
 
-•⁠  ⁠⁠ Sunaina_Thesis_Data_Analysis.ipynb ⁠ - Complete analytical pipeline
+- Sunaina_Thesis_Data_Analysis.ipynb ⁠ - Complete analytical pipeline
 
-•⁠  ⁠⁠ Master Thesis github.pdf ⁠ - Full thesis document
+- Master Thesis github.pdf ⁠ - Full thesis document
 
-•⁠  ⁠⁠ requirements.txt ⁠ - Python dependencies
+- requirements.txt ⁠ - Python dependencies
 
 ---
 
@@ -146,10 +144,13 @@ This work is available for academic and educational purposes. For commercial use
 
 ## Contact
 
-*LinkedIn:* https://www.linkedin.com/in/sunainamanjunath/
-*Live Dashboard:* https://sunaina2005.github.io/Thesis-Renewable-Energy-Adoption-Data-Analysis/
-*Portfolio:* https://sunaina-manjunath-portfolio.netlify.app
-*Email:* sunainamgowda@gmail.com
+- *LinkedIn:* https://www.linkedin.com/in/sunainamanjunath/
+  
+- *Live Dashboard:* https://sunaina2005.github.io/Thesis-Renewable-Energy-Adoption-Data-Analysis/
+  
+- *Portfolio:* https://sunaina-manjunath-portfolio.netlify.app
+  
+- *Email:* sunainamgowda@gmail.com
 
 ---
 
