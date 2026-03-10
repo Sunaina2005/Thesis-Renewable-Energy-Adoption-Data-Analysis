@@ -3,1651 +3,893 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Global Renewable Energy Analytics Dashboard</title>
+<title>Global Renewable Energy Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #080c14;
-    --surface: #0d1420;
-    --surface2: #111b2e;
-    --border: #1e2d47;
-    --accent1: #00d4ff;
-    --accent2: #7c3aed;
-    --accent3: #10b981;
-    --accent4: #f59e0b;
-    --accent5: #ef4444;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --glow1: rgba(0,212,255,0.15);
-    --glow2: rgba(124,58,237,0.15);
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e4e2da;
+    --text-primary: #1a1915;
+    --text-secondary: #6b6860;
+    --text-muted: #a8a59f;
+    --accent-green: #2d6a4f;
+    --accent-green-light: #52b788;
+    --accent-amber: #d4a017;
+    --accent-blue: #1d4e89;
+    --accent-sky: #4895ef;
+    --accent-teal: #0a9396;
+    --accent-red: #c1121f;
+    --tag-bg: #e8f5ee;
+    --tag-text: #2d6a4f;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     background: var(--bg);
-    color: var(--text);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
     min-height: 100vh;
-    overflow-x: hidden;
   }
 
-  /* Animated grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .noise {
-    position: fixed;
-    inset: 0;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 24px;
-  }
-
-  /* HEADER */
   header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .header-left h1 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
-    line-height: 1.1;
-    background: linear-gradient(135deg, var(--accent1), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.02em;
-  }
-
-  .header-left p {
-    font-family: 'Space Mono', monospace;
-    color: var(--muted);
-    font-size: 0.72rem;
-    margin-top: 6px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .header-badges {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .badge {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    padding: 5px 12px;
-    border-radius: 100px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .badge-cyan { background: rgba(0,212,255,0.12); color: var(--accent1); border: 1px solid rgba(0,212,255,0.3); }
-  .badge-purple { background: rgba(124,58,237,0.12); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
-  .badge-green { background: rgba(16,185,129,0.12); color: var(--accent3); border: 1px solid rgba(16,185,129,0.3); }
-
-  /* NAV TABS */
-  .nav-tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 28px;
     background: var(--surface);
-    padding: 6px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
   }
 
-  .tab-btn {
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.78rem;
-    padding: 9px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: transparent;
-    color: var(--muted);
-    transition: all 0.2s;
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-dot {
+    width: 28px; height: 28px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-dot svg { width: 14px; height: 14px; fill: white; }
+
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+
+  .header-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  nav {
+    display: flex;
+    gap: 2px;
+  }
+
+  nav a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.15s;
     white-space: nowrap;
-    letter-spacing: 0.02em;
   }
 
-  .tab-btn:hover { color: var(--text); background: var(--surface2); }
-  .tab-btn.active {
-    background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(124,58,237,0.2));
-    color: var(--accent1);
-    border: 1px solid rgba(0,212,255,0.3);
+  nav a:hover, nav a.active {
+    background: var(--surface2);
+    color: var(--text-primary);
   }
 
-  /* SECTIONS */
-  .section { display: none; animation: fadeIn 0.3s ease; }
-  .section.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+  nav a.active {
+    color: var(--accent-green);
   }
 
-  /* KPI CARDS */
-  .kpi-row {
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .source-tag {
+    font-size: 10px;
+    font-weight: 500;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+  }
+
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 40px 64px;
+  }
+
+  .hero {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+  }
+
+  .hero-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    letter-spacing: -0.8px;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--accent-green);
+  }
+
+  .hero-text p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 440px;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--surface);
+  }
+
+  .tag.green { border-color: #b7e4c7; background: #f0faf4; color: var(--accent-green); }
+  .tag.blue  { border-color: #bcd4f0; background: #eef4fb; color: var(--accent-blue); }
+  .tag.amber { border-color: #f0dda0; background: #fdf7e3; color: #8a6500; }
+
+  .kpi-strip {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
   }
 
   .kpi-card {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
+    padding: 20px 22px;
     position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
   }
 
-  .kpi-card:hover { transform: translateY(-2px); border-color: rgba(0,212,255,0.4); }
-
-  .kpi-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  }
+  .kpi-card:first-child { border-radius: 12px 0 0 12px; }
+  .kpi-card:last-child  { border-radius: 0 12px 12px 0; }
 
   .kpi-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
     margin-bottom: 8px;
   }
 
   .kpi-value {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.9rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
     line-height: 1;
-    background: linear-gradient(135deg, var(--accent1), #60a5fa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
   }
 
-  .kpi-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--accent3);
-    margin-top: 6px;
-  }
-
-  /* CHART CARDS */
-  .chart-grid {
-    display: grid;
-    gap: 20px;
-  }
-
-  .chart-grid-2 { grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); }
-  .chart-grid-3 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
-
-  .chart-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    transition: border-color 0.2s;
-  }
-
-  .chart-card:hover { border-color: rgba(0,212,255,0.25); }
-
-  .chart-card.wide { grid-column: 1 / -1; }
-
-  .chart-header {
+  .kpi-delta {
+    font-size: 11px;
+    font-weight: 600;
     display: flex;
     align-items: center;
+    gap: 3px;
+    color: var(--accent-green);
+  }
+
+  .kpi-delta::before { content: '↑'; }
+
+  .kpi-accent-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent-green-light);
+    opacity: 0.6;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
     justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    letter-spacing: -0.3px;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .grid-3-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: var(--text-muted);
     margin-bottom: 20px;
   }
 
-  .chart-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--text);
-  }
+  .chart-wrap { position: relative; width: 100%; }
 
-  .chart-subtitle {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--muted);
-    margin-top: 3px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
 
-  .chart-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
-    padding: 4px 10px;
-    border-radius: 100px;
-    background: rgba(16,185,129,0.1);
-    color: var(--accent3);
-    border: 1px solid rgba(16,185,129,0.25);
-    letter-spacing: 0.05em;
-  }
-
-  canvas { max-height: 320px; }
-
-  /* TABLE */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.83rem;
-  }
-
-  .data-table th {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    padding: 10px 14px;
+  .data-table thead th {
     text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 8px 10px;
     border-bottom: 1px solid var(--border);
   }
 
-  .data-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid rgba(30,45,71,0.5);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
+  .data-table tbody tr {
+    border-bottom: 1px solid var(--surface2);
+    transition: background 0.1s;
   }
 
-  .data-table tr:hover td { background: rgba(0,212,255,0.03); }
+  .data-table tbody tr:hover { background: var(--surface2); }
+  .data-table tbody td { padding: 9px 8px; }
 
   .rank-badge {
+    width: 20px; height: 20px;
+    background: var(--surface2);
+    border-radius: 4px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    font-size: 0.65rem;
+    font-size: 10px;
     font-weight: 700;
+    color: var(--text-muted);
   }
 
-  .rank-1 { background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.4); }
-  .rank-2 { background: rgba(148,163,184,0.15); color: #94a3b8; border: 1px solid rgba(148,163,184,0.3); }
-  .rank-3 { background: rgba(180,120,60,0.15); color: #cd7f32; border: 1px solid rgba(180,120,60,0.3); }
-  .rank-other { background: rgba(30,45,71,0.8); color: var(--muted); border: 1px solid var(--border); }
+  .rank-badge.top { background: var(--accent-green); color: white; }
 
-  .bar-mini {
-    height: 6px;
-    border-radius: 3px;
-    margin-top: 6px;
-    background: linear-gradient(90deg, var(--accent1), var(--accent2));
-    transition: width 0.8s ease;
-  }
+  .bar-inline { display: flex; align-items: center; gap: 8px; }
+  .bar-track { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; background: var(--accent-green-light); }
 
-  /* SHAP bars */
-  .shap-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-
-  .shap-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--text);
-    width: 160px;
-    flex-shrink: 0;
-  }
-
-  .shap-bar-wrap {
-    flex: 1;
-    height: 20px;
-    background: var(--surface2);
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .shap-bar-fill {
-    height: 100%;
-    border-radius: 4px;
-    position: absolute;
-    top: 0;
-    transition: width 1s ease;
-  }
-
-  .shap-val {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    width: 48px;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  /* Panel regression */
-  .reg-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .reg-table th {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.58rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    text-align: right;
-  }
-
-  .reg-table th:first-child { text-align: left; }
-
-  .reg-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(30,45,71,0.4);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    text-align: right;
-  }
-
-  .reg-table td:first-child { text-align: left; color: var(--accent1); }
-  .reg-table tr:hover td { background: rgba(0,212,255,0.03); }
-
-  .sig-star { color: var(--accent4); }
-  .sig-hi { color: var(--accent3); }
-
-  .model-selector {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  .model-btn {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.62rem;
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.04em;
-  }
-
-  .model-btn:hover { color: var(--text); border-color: rgba(0,212,255,0.4); }
-  .model-btn.active { background: rgba(0,212,255,0.12); color: var(--accent1); border-color: rgba(0,212,255,0.4); }
-
-  /* Forecast controls */
-  .forecast-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .country-btn {
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.72rem;
-    padding: 7px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .country-btn.active-de { background: rgba(0,212,255,0.15); color: var(--accent1); border-color: rgba(0,212,255,0.4); }
-  .country-btn.active-in { background: rgba(16,185,129,0.15); color: var(--accent3); border-color: rgba(16,185,129,0.4); }
-  .country-btn.active-us { background: rgba(245,158,11,0.15); color: var(--accent4); border-color: rgba(245,158,11,0.4); }
-
-  .info-box {
-    background: rgba(0,212,255,0.05);
-    border: 1px solid rgba(0,212,255,0.15);
+  .insight-box {
+    background: #f0faf4;
+    border: 1px solid #b7e4c7;
     border-radius: 10px;
     padding: 16px 20px;
-    margin-top: 16px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--muted);
-    line-height: 1.7;
+    margin-top: 20px;
+    font-size: 12.5px;
+    color: var(--accent-green);
+    line-height: 1.6;
   }
 
-  .info-box strong { color: var(--accent1); }
+  .insight-box strong { font-weight: 600; }
 
-  /* Scrollbar */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .stat-block { background: var(--surface2); border-radius: 8px; padding: 14px 16px; }
+
+  .stat-block-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .stat-block-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--text-primary);
+    letter-spacing: -0.4px;
+  }
+
+  .stat-block-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+  .selector-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .selector-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
+
+  .selector-btn {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .selector-btn.active {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: white;
+  }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .reg-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+  .reg-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 10px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .reg-table td { padding: 9px 10px; border-bottom: 1px solid var(--surface2); }
+
+  .sig-star { font-size: 10px; color: var(--accent-green); font-weight: 700; margin-left: 2px; }
+  .coef-positive { color: var(--accent-green); font-weight: 600; }
+  .coef-negative { color: var(--accent-red); font-weight: 600; }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
-    header { flex-direction: column; gap: 12px; }
-    .header-badges { justify-content: flex-start; }
-  }
 </style>
 </head>
 <body>
-<div class="noise"></div>
-<div class="wrapper">
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-left">
-      <h1>Global Renewable Energy<br>Analytics Dashboard</h1>
-      <p>Panel Data Analysis · 2000–2023 · 195 Countries · Forecasts to 2035</p>
+<header>
+  <div class="header-left">
+    <div class="logo-dot">
+      <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
     </div>
-    <div class="header-badges">
-      <span class="badge badge-cyan">IRENA Dataset</span>
-      <span class="badge badge-purple">World Bank GDP</span>
-      <span class="badge badge-green">ML Forecasting</span>
+    <div>
+      <div class="header-title">Renewable Energy Analytics</div>
+      <div class="header-meta">Panel Data · 2000–2023 · 195 Countries</div>
     </div>
-  </header>
-
-  <!-- NAV -->
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('overview')">🌍 Global Trends</button>
-    <button class="tab-btn" onclick="switchTab('countries')">🏆 Top Countries</button>
-    <button class="tab-btn" onclick="switchTab('gdp')">📊 GDP Correlation</button>
-    <button class="tab-btn" onclick="switchTab('forecast')">🔮 Forecasting</button>
-    <button class="tab-btn" onclick="switchTab('panel')">📐 Panel Regression</button>
-    <button class="tab-btn" onclick="switchTab('shap')">🧠 SHAP / Feature Importance</button>
   </div>
+  <nav>
+    <a href="#global" class="active">Global Trends</a>
+    <a href="#countries">Top Countries</a>
+    <a href="#gdp">GDP Correlation</a>
+    <a href="#forecast">Forecasting</a>
+    <a href="#regression">Panel Regression</a>
+    <a href="#shap">SHAP / ML</a>
+  </nav>
+  <div class="header-right">
+    <span class="source-tag">IRENA</span>
+    <span class="source-tag">World Bank</span>
+    <span class="source-tag">ML Models</span>
+  </div>
+</header>
 
-  <!-- ===================== SECTION 1: OVERVIEW ===================== -->
-  <div id="section-overview" class="section active">
+<main>
 
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-label">Global RE Capacity 2023</div>
-        <div class="kpi-value">3,372 GW</div>
-        <div class="kpi-sub">↑ +14.2% YoY</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Solar Growth (2000–2023)</div>
-        <div class="kpi-value">800×</div>
-        <div class="kpi-sub">↑ From 1.5 GW → 1,200 GW</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Wind Capacity 2023</div>
-        <div class="kpi-value">899 GW</div>
-        <div class="kpi-sub">↑ +11.8% YoY</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">RE Share of Electricity</div>
-        <div class="kpi-value">30%</div>
-        <div class="kpi-sub">↑ Up from 19% in 2000</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">New Additions 2023</div>
-        <div class="kpi-value">420 GW</div>
-        <div class="kpi-sub">↑ Record year globally</div>
-      </div>
-    </div>
-
-    <div class="chart-grid chart-grid-2">
-      <div class="chart-card wide">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Global Renewable Energy Capacity by Source (2000–2023)</div>
-            <div class="chart-subtitle">GW installed capacity · IRENA Global Renewable Energy Database</div>
-          </div>
-          <span class="chart-tag">Stacked Area</span>
-        </div>
-        <canvas id="globalTrendsChart"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Annual Capacity Additions</div>
-            <div class="chart-subtitle">GW added per year globally</div>
-          </div>
-          <span class="chart-tag">Bar Chart</span>
-        </div>
-        <canvas id="annualAdditionsChart"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Technology Mix Shift</div>
-            <div class="chart-subtitle">Share of total RE capacity</div>
-          </div>
-          <span class="chart-tag">Donut</span>
-        </div>
-        <canvas id="techMixChart"></canvas>
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Global <em>Renewable Energy</em><br>Adoption Analysis</h1>
+      <p>Examining capacity growth, economic drivers, and machine learning forecasts across 195 countries from 2000 to 2035.</p>
+      <div class="hero-tags">
+        <span class="tag green">Thesis Research</span>
+        <span class="tag blue">Panel Regression</span>
+        <span class="tag amber">ML Forecasting</span>
+        <span class="tag">2000–2023</span>
       </div>
     </div>
   </div>
 
-  <!-- ===================== SECTION 2: COUNTRIES ===================== -->
-  <div id="section-countries" class="section">
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-label">China Total RE 2023</div>
-        <div class="kpi-value">1,340 GW</div>
-        <div class="kpi-sub">↑ 40% of global total</div>
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-label">Global RE Capacity 2023</div>
+      <div class="kpi-value">3,372 GW</div>
+      <div class="kpi-delta">+14.2% YoY</div>
+      <div class="kpi-accent-bar"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Solar Growth 2000–2023</div>
+      <div class="kpi-value">800×</div>
+      <div class="kpi-delta">1.5 → 1,200 GW</div>
+      <div class="kpi-accent-bar" style="background: var(--accent-amber);"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Wind Capacity 2023</div>
+      <div class="kpi-value">899 GW</div>
+      <div class="kpi-delta">+11.8% YoY</div>
+      <div class="kpi-accent-bar" style="background: var(--accent-sky);"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">RE Share of Electricity</div>
+      <div class="kpi-value">30%</div>
+      <div class="kpi-delta">Up from 19% in 2000</div>
+      <div class="kpi-accent-bar" style="background: var(--accent-teal);"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">New Additions 2023</div>
+      <div class="kpi-value">420 GW</div>
+      <div class="kpi-delta">Record year globally</div>
+      <div class="kpi-accent-bar" style="background: #74c69d;"></div>
+    </div>
+  </div>
+
+  <div id="global">
+    <div class="section-header">
+      <div class="section-title">Global Trends</div>
+      <div class="section-subtitle">Capacity growth by technology, 2000–2023</div>
+    </div>
+    <div class="grid-3-2">
+      <div class="card">
+        <div class="card-title">Renewable Energy Capacity by Source</div>
+        <div class="card-desc">GW installed globally · IRENA dataset</div>
+        <div class="chart-wrap" style="height:260px"><canvas id="stackedAreaChart"></canvas></div>
+        <div class="legend" style="margin-top:16px">
+          <div class="legend-item"><div class="legend-dot" style="background:#52b788"></div>Hydro</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#4895ef"></div>Wind</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#d4a017"></div>Solar</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#0a9396"></div>Other</div>
+        </div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">USA Total RE 2023</div>
-        <div class="kpi-value">352 GW</div>
-        <div class="kpi-sub">↑ Solar led growth</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">India Growth CAGR</div>
-        <div class="kpi-value">18.4%</div>
-        <div class="kpi-sub">↑ Fastest growing major</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">EU27 Combined</div>
-        <div class="kpi-value">621 GW</div>
-        <div class="kpi-sub">↑ Led by Germany & Spain</div>
+      <div class="card">
+        <div class="card-title">Annual Capacity Additions</div>
+        <div class="card-desc">GW added per year globally</div>
+        <div class="chart-wrap" style="height:260px"><canvas id="additionsChart"></canvas></div>
       </div>
     </div>
+  </div>
 
-    <div class="chart-grid chart-grid-2">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Top 10 Countries by Total RE Capacity (2023)</div>
-            <div class="chart-subtitle">GW installed · All renewable sources combined</div>
-          </div>
-        </div>
-        <canvas id="topCountriesChart"></canvas>
+  <hr class="section-divider">
+
+  <div id="countries">
+    <div class="section-header">
+      <div class="section-title">Top Countries</div>
+      <div class="section-subtitle">Ranked by total installed RE capacity, 2023</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-block">
+        <div class="stat-block-label">China Total RE</div>
+        <div class="stat-block-value">1,340 GW</div>
+        <div class="stat-block-sub">40% of global total</div>
       </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">RE Capacity Per Capita (2023)</div>
-            <div class="chart-subtitle">Watts per person · Top 10 countries</div>
-          </div>
-        </div>
-        <canvas id="perCapitaChart"></canvas>
+      <div class="stat-block">
+        <div class="stat-block-label">USA Total RE</div>
+        <div class="stat-block-value">352 GW</div>
+        <div class="stat-block-sub">Solar-led growth</div>
       </div>
-
-      <div class="chart-card wide">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Country Rankings & Statistics</div>
-            <div class="chart-subtitle">2023 data · Sorted by total installed capacity</div>
-          </div>
-        </div>
+      <div class="stat-block">
+        <div class="stat-block-label">India Growth CAGR</div>
+        <div class="stat-block-value">18.4%</div>
+        <div class="stat-block-sub">Fastest growing major economy</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-block-label">EU27 Combined</div>
+        <div class="stat-block-value">621 GW</div>
+        <div class="stat-block-sub">Led by Germany & Spain</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Top 10 by Total RE Capacity (2023)</div>
+        <div class="card-desc">GW installed · All renewable sources</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="topCountriesChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Country Rankings & Statistics</div>
+        <div class="card-desc">2023 data · Sorted by total installed capacity</div>
         <table class="data-table">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Country</th>
-              <th>Total RE (GW)</th>
-              <th>Solar (GW)</th>
-              <th>Wind (GW)</th>
-              <th>Hydro (GW)</th>
-              <th>% of Global</th>
-              <th>CAGR 2010–23</th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>Country</th><th>Total GW</th><th>Share</th><th>CAGR</th></tr></thead>
           <tbody id="countryTableBody"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- ===================== SECTION 3: GDP ===================== -->
-  <div id="section-gdp" class="section">
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-label">Pearson Correlation</div>
-        <div class="kpi-value">r = 0.71</div>
-        <div class="kpi-sub">↑ Strong positive correlation</div>
+  <hr class="section-divider">
+
+  <div id="gdp">
+    <div class="section-header">
+      <div class="section-title">GDP Correlation</div>
+      <div class="section-subtitle">Economic drivers of renewable energy adoption</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-block">
+        <div class="stat-block-label">Pearson Correlation</div>
+        <div class="stat-block-value" style="color:var(--accent-green)">r = 0.71</div>
+        <div class="stat-block-sub">Strong positive correlation</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">R² Score</div>
-        <div class="kpi-value">0.503</div>
-        <div class="kpi-sub">↑ GDP explains ~50% of variance</div>
+      <div class="stat-block">
+        <div class="stat-block-label">R² Score</div>
+        <div class="stat-block-value">0.503</div>
+        <div class="stat-block-sub">GDP explains ~50% of variance</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">GDP Elasticity</div>
-        <div class="kpi-value">1.24</div>
-        <div class="kpi-sub">↑ 1% GDP → 1.24% RE growth</div>
+      <div class="stat-block">
+        <div class="stat-block-label">GDP Elasticity</div>
+        <div class="stat-block-value" style="color:var(--accent-blue)">1.24</div>
+        <div class="stat-block-sub">1% GDP → 1.24% RE growth</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">p-value</div>
-        <div class="kpi-value">&lt;0.001</div>
-        <div class="kpi-sub">↑ Highly statistically significant</div>
+      <div class="stat-block">
+        <div class="stat-block-label">p-value</div>
+        <div class="stat-block-value" style="color:var(--accent-green)">&lt;0.001</div>
+        <div class="stat-block-sub">Highly statistically significant</div>
       </div>
     </div>
-
-    <div class="chart-grid chart-grid-2">
-      <div class="chart-card wide">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">GDP per Capita vs. RE Capacity per Capita (2023)</div>
-            <div class="chart-subtitle">Bubble size = total RE installed · Log scale</div>
-          </div>
-          <span class="chart-tag">Bubble Plot</span>
-        </div>
-        <canvas id="gdpScatterChart"></canvas>
+    <div class="grid-3-2">
+      <div class="card">
+        <div class="card-title">GDP per Capita vs. RE Capacity per Capita (2023)</div>
+        <div class="card-desc">Bubble size = total RE installed · Log scale</div>
+        <div class="chart-wrap" style="height:260px"><canvas id="bubbleChart"></canvas></div>
       </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">GDP Growth vs RE Growth (2010–2023)</div>
-            <div class="chart-subtitle">Annual % change correlation</div>
+      <div class="card">
+        <div class="card-title">Key Finding</div>
+        <div class="card-desc">Interpretation of GDP–RE relationship</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+          <div style="padding:14px;background:var(--surface2);border-radius:8px">
+            <div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px">Strong Correlation</div>
+            <div style="font-size:12.5px;line-height:1.6">The GDP–RE relationship shows a strong positive correlation (r = 0.71), but with important nuances about scale vs. per-capita performance.</div>
           </div>
-        </div>
-        <canvas id="gdpReGrowthChart"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Income Group RE Adoption</div>
-            <div class="chart-subtitle">Avg GW per country by World Bank income group</div>
+          <div style="padding:14px;background:#f0faf4;border:1px solid #b7e4c7;border-radius:8px">
+            <div style="font-size:11px;font-weight:600;color:var(--accent-green);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px">Policy Effect</div>
+            <div style="font-size:12.5px;line-height:1.6">Policy variables (FIT, RPS) add significant explanatory power beyond GDP alone — <strong>ΔR² = +0.18</strong>.</div>
+          </div>
+          <div style="padding:14px;background:#eef4fb;border:1px solid #bcd4f0;border-radius:8px">
+            <div style="font-size:11px;font-weight:600;color:var(--accent-blue);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px">Super-Proportional Scaling</div>
+            <div style="font-size:12.5px;line-height:1.6">GDP elasticity of <strong>1.24 (p &lt; 0.001)</strong> suggests RE investment scales super-proportionally with economic growth.</div>
           </div>
         </div>
-        <canvas id="incomeGroupChart"></canvas>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <strong>Key Finding:</strong> The GDP–RE relationship shows a strong positive correlation (r = 0.71), but with important nuances.
-      <strong>High-income countries</strong> lead in per-capita terms, yet <strong>China and India</strong> (upper-middle income) dominate absolute capacity due to scale.
-      Panel regression with fixed effects yields a GDP elasticity of <strong>1.24</strong> (p &lt; 0.001), suggesting RE investment scales super-proportionally with economic growth.
-      However, <strong>policy variables</strong> (FIT, RPS) add significant explanatory power beyond GDP alone (ΔR² = +0.18).
-    </div>
-  </div>
-
-  <!-- ===================== SECTION 4: FORECASTING ===================== -->
-  <div id="section-forecast" class="section">
-    <div class="forecast-controls">
-      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);margin-right:4px;">SELECT COUNTRY:</span>
-      <button class="country-btn active-de" onclick="setCountry('DE')">🇩🇪 Germany</button>
-      <button class="country-btn" onclick="setCountry('IN')">🇮🇳 India</button>
-      <button class="country-btn" onclick="setCountry('US')">🇺🇸 USA</button>
-    </div>
-
-    <div class="kpi-row" id="forecastKPIs">
-      <div class="kpi-card">
-        <div class="kpi-label">Current (2023)</div>
-        <div class="kpi-value" id="fkpi1">230 GW</div>
-        <div class="kpi-sub" id="fkpi1sub">Germany total RE</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Forecast 2030</div>
-        <div class="kpi-value" id="fkpi2">430 GW</div>
-        <div class="kpi-sub" id="fkpi2sub">+87% from 2023</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Forecast 2035</div>
-        <div class="kpi-value" id="fkpi3">600 GW</div>
-        <div class="kpi-sub" id="fkpi3sub">Projected 2035</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Model MAPE</div>
-        <div class="kpi-value" id="fkpi4">3.2%</div>
-        <div class="kpi-sub" id="fkpi4sub">SARIMA + LSTM ensemble</div>
-      </div>
-    </div>
-
-    <div class="chart-grid chart-grid-2">
-      <div class="chart-card wide">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title" id="forecastChartTitle">Germany: RE Capacity Forecast (2000–2035)</div>
-            <div class="chart-subtitle">Historical + 95% confidence interval · SARIMA-LSTM ensemble</div>
-          </div>
-          <span class="chart-tag">Time Series Forecast</span>
-        </div>
-        <canvas id="forecastChart"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Model Comparison</div>
-            <div class="chart-subtitle">MAPE across models and countries</div>
-          </div>
-        </div>
-        <canvas id="modelCompChart"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Three-Country Comparative Forecast</div>
-            <div class="chart-subtitle">Normalized index (2023 = 100)</div>
-          </div>
-        </div>
-        <canvas id="threeCountryChart"></canvas>
       </div>
     </div>
   </div>
 
-  <!-- ===================== SECTION 5: PANEL REGRESSION ===================== -->
-  <div id="section-panel" class="section">
+  <hr class="section-divider">
 
-    <div class="model-selector">
-      <span style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);margin-right:6px;align-self:center;">MODEL:</span>
-      <button class="model-btn active" onclick="setModel('fe')">Fixed Effects</button>
-      <button class="model-btn" onclick="setModel('re')">Random Effects</button>
-      <button class="model-btn" onclick="setModel('iv')">IV / 2SLS</button>
+  <div id="forecast">
+    <div class="section-header">
+      <div class="section-title">Forecasting</div>
+      <div class="section-subtitle">SARIMA-LSTM ensemble · 95% confidence interval · Forecast to 2035</div>
     </div>
-
-    <div class="chart-grid chart-grid-2">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Panel Regression Results</div>
-            <div class="chart-subtitle" id="modelLabel">Fixed Effects · Driscoll-Kraay SE · N = 195 countries · T = 23 years</div>
-          </div>
+    <div class="selector-row">
+      <span class="selector-label">Select Country:</span>
+      <button class="selector-btn active" onclick="switchCountry('Germany', this)">🇩🇪 Germany</button>
+      <button class="selector-btn" onclick="switchCountry('India', this)">🇮🇳 India</button>
+      <button class="selector-btn" onclick="switchCountry('USA', this)">🇺🇸 USA</button>
+    </div>
+    <div class="grid-3-2">
+      <div class="card">
+        <div class="card-title" id="forecastTitle">Germany: RE Capacity Forecast (2000–2035)</div>
+        <div class="card-desc">Historical data + 95% confidence interval · SARIMA-LSTM ensemble</div>
+        <div class="chart-wrap" style="height:260px"><canvas id="forecastChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div style="margin-bottom:20px">
+          <div class="stat-block-label">Current (2023)</div>
+          <div class="stat-block-value" id="fc-current">230 GW</div>
+          <div class="stat-block-sub" id="fc-country">Germany total RE</div>
         </div>
-        <table class="reg-table" id="regressionTable">
-          <thead>
-            <tr>
-              <th>Variable</th>
-              <th>Coefficient</th>
-              <th>Std. Error</th>
-              <th>t-stat</th>
-              <th>p-value</th>
-              <th>95% CI</th>
-            </tr>
-          </thead>
-          <tbody id="regTableBody"></tbody>
+        <div style="height:1px;background:var(--border);margin-bottom:20px"></div>
+        <div style="margin-bottom:16px">
+          <div class="stat-block-label">Forecast 2030</div>
+          <div class="stat-block-value" style="color:var(--accent-blue)" id="fc-2030">430 GW</div>
+          <div class="stat-block-sub" id="fc-2030-pct">+87% from 2023</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div class="stat-block-label">Forecast 2035</div>
+          <div class="stat-block-value" style="color:var(--accent-green)" id="fc-2035">600 GW</div>
+        </div>
+        <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
+        <div>
+          <div class="stat-block-label">Model MAPE</div>
+          <div class="stat-block-value" id="fc-mape">3.2%</div>
+          <div class="stat-block-sub">SARIMA + LSTM ensemble</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <div id="regression">
+    <div class="section-header">
+      <div class="section-title">Panel Regression</div>
+      <div class="section-subtitle">N = 195 countries · T = 23 years · Driscoll-Kraay standard errors</div>
+    </div>
+    <div class="grid-3-2">
+      <div class="card">
+        <div class="card-title">Regression Results — Fixed Effects</div>
+        <div class="card-desc">R² = 0.842 · Adj-R² = 0.831</div>
+        <table class="reg-table">
+          <thead><tr><th>Variable</th><th>Coefficient</th><th>Std. Error</th><th>t-stat</th><th>p-value</th></tr></thead>
+          <tbody>
+            <tr><td>ln(GDP per capita)</td><td class="coef-positive">1.24<span class="sig-star">***</span></td><td>0.089</td><td>13.93</td><td>&lt;0.001</td></tr>
+            <tr><td>Feed-in Tariff (FIT)</td><td class="coef-positive">0.68<span class="sig-star">***</span></td><td>0.102</td><td>6.67</td><td>&lt;0.001</td></tr>
+            <tr><td>Renewable Portfolio Std</td><td class="coef-positive">0.45<span class="sig-star">***</span></td><td>0.071</td><td>6.34</td><td>&lt;0.001</td></tr>
+            <tr><td>Carbon Price (log)</td><td class="coef-positive">0.31<span class="sig-star">**</span></td><td>0.118</td><td>2.63</td><td>0.009</td></tr>
+            <tr><td>Trade Openness</td><td class="coef-positive">0.19<span class="sig-star">*</span></td><td>0.095</td><td>2.00</td><td>0.046</td></tr>
+            <tr><td>Political Stability</td><td class="coef-positive">0.14<span class="sig-star">*</span></td><td>0.072</td><td>1.94</td><td>0.052</td></tr>
+            <tr><td>Fossil Fuel Rents</td><td class="coef-negative">−0.22<span class="sig-star">***</span></td><td>0.055</td><td>−4.00</td><td>&lt;0.001</td></tr>
+          </tbody>
         </table>
-        <div style="margin-top:14px;font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);">
-          <span class="sig-hi">***</span> p&lt;0.01 &nbsp; <span class="sig-star">**</span> p&lt;0.05 &nbsp; * p&lt;0.1 &nbsp;&nbsp;|&nbsp;&nbsp; R² = 0.842 &nbsp; Adj-R² = 0.831
-        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:10px">*** p&lt;0.01 &nbsp; ** p&lt;0.05 &nbsp; * p&lt;0.1</div>
       </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Coefficient Plot</div>
-            <div class="chart-subtitle">Point estimates ± 95% confidence intervals</div>
-          </div>
-        </div>
-        <canvas id="coefPlot"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Hausman Test Result</div>
-            <div class="chart-subtitle">FE vs RE specification test</div>
-          </div>
-        </div>
-        <canvas id="residualPlot"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Marginal Effects Over Time</div>
-            <div class="chart-subtitle">GDP elasticity evolution by decade</div>
-          </div>
-        </div>
-        <canvas id="marginalEffectsChart"></canvas>
+      <div class="card">
+        <div class="card-title">Coefficient Plot</div>
+        <div class="card-desc">Point estimates ± 95% CI</div>
+        <div class="chart-wrap" style="height:240px"><canvas id="coefChart"></canvas></div>
       </div>
     </div>
   </div>
 
-  <!-- ===================== SECTION 6: SHAP ===================== -->
-  <div id="section-shap" class="section">
+  <hr class="section-divider">
 
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-label">Model</div>
-        <div class="kpi-value" style="font-size:1.3rem;">XGBoost</div>
-        <div class="kpi-sub">↑ + Random Forest ensemble</div>
+  <div id="shap">
+    <div class="section-header">
+      <div class="section-title">SHAP & Feature Importance</div>
+      <div class="section-subtitle">XGBoost · Random Forest · Gradient Boosting · 5-fold cross-validation</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-block">
+        <div class="stat-block-label">Best Model</div>
+        <div class="stat-block-value">XGBoost</div>
+        <div class="stat-block-sub">+ Random Forest ensemble</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Test R²</div>
-        <div class="kpi-value">0.891</div>
-        <div class="kpi-sub">↑ Cross-validated 5-fold</div>
+      <div class="stat-block">
+        <div class="stat-block-label">Test R²</div>
+        <div class="stat-block-value" style="color:var(--accent-green)">0.891</div>
+        <div class="stat-block-sub">Cross-validated 5-fold</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Features Used</div>
-        <div class="kpi-value">24</div>
-        <div class="kpi-sub">↑ After feature selection</div>
+      <div class="stat-block">
+        <div class="stat-block-label">Features Used</div>
+        <div class="stat-block-value">24</div>
+        <div class="stat-block-sub">After feature selection</div>
       </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Top Feature</div>
-        <div class="kpi-value" style="font-size:1rem;">GDP/cap</div>
-        <div class="kpi-sub">↑ SHAP = 0.34</div>
+      <div class="stat-block">
+        <div class="stat-block-label">Top Feature</div>
+        <div class="stat-block-value">GDP/cap</div>
+        <div class="stat-block-sub">SHAP = 0.34</div>
       </div>
     </div>
-
-    <div class="chart-grid chart-grid-2">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">SHAP Feature Importance</div>
-            <div class="chart-subtitle">Mean |SHAP value| · XGBoost model · RE capacity target</div>
-          </div>
-          <span class="chart-tag">SHAP</span>
-        </div>
-        <div id="shapBars" style="margin-top:8px;"></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">SHAP Feature Importance</div>
+        <div class="card-desc">Mean |SHAP value| · XGBoost model · RE capacity target</div>
+        <div class="chart-wrap" style="height:260px"><canvas id="shapChart"></canvas></div>
       </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">Feature Importance Comparison</div>
-            <div class="chart-subtitle">XGBoost vs Random Forest vs Gradient Boosting</div>
-          </div>
+      <div class="card">
+        <div class="card-title">Model Comparison</div>
+        <div class="card-desc">Test R² across models</div>
+        <div class="chart-wrap" style="height:220px"><canvas id="modelChart"></canvas></div>
+        <div class="insight-box">
+          <strong>Key Insight:</strong> GDP per capita is the strongest predictor (SHAP = 0.34), followed by policy instruments at 0.28. Countries with carbon pricing adopt RE at <strong>2.3× the rate</strong> of comparable peers.
         </div>
-        <canvas id="featureCompChart"></canvas>
       </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">SHAP Summary — Direction of Effects</div>
-            <div class="chart-subtitle">Positive = increases RE adoption · Negative = decreases</div>
-          </div>
-        </div>
-        <canvas id="shapDirectionChart"></canvas>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <div class="chart-title">SHAP Interaction: GDP × Policy</div>
-            <div class="chart-subtitle">Marginal SHAP across GDP quartiles</div>
-          </div>
-        </div>
-        <canvas id="shapInteractionChart"></canvas>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <strong>Interpretation:</strong> SHAP analysis reveals that <strong>GDP per capita</strong> is the single strongest predictor of RE adoption (mean |SHAP| = 0.34), followed closely by
-      <strong>policy instruments</strong> (Feed-in Tariffs, RPS) at 0.28. Notably, <strong>carbon price</strong> shows an outsized effect relative to its prevalence—countries with carbon pricing mechanisms
-      adopt RE at 2.3× the rate of comparable peers. The <strong>interaction of GDP × Policy</strong> is superadditive: high-income countries with strong policy frameworks show SHAP values
-      3× higher than would be expected from either factor alone.
     </div>
   </div>
 
-</div><!-- /wrapper -->
+  <div class="footer-note">
+    Data sources: IRENA Global Renewable Energy Database · World Bank GDP Indicators · ML models: SARIMA-LSTM, XGBoost, Random Forest · Analysis period 2000–2023
+  </div>
+</main>
 
 <script>
-// ============================================================
-// DATA
-// ============================================================
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#6b6860';
+Chart.defaults.plugins.legend.display = false;
+Chart.defaults.plugins.tooltip.backgroundColor = '#1a1915';
+Chart.defaults.plugins.tooltip.titleColor = '#ffffff';
+Chart.defaults.plugins.tooltip.bodyColor = '#d4d3cf';
+Chart.defaults.plugins.tooltip.padding = 10;
+Chart.defaults.plugins.tooltip.cornerRadius = 6;
 
-const years = Array.from({length:24}, (_,i) => 2000+i);
-const yearsStr = years.map(String);
+const years = [2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022,2023];
 
-const globalData = {
-  hydro:   [756,770,779,794,807,820,836,857,877,906,936,970,1005,1040,1075,1111,1130,1150,1175,1200,1220,1245,1270,1295],
-  wind:    [17,24,32,40,59,74,94,121,158,200,253,318,382,437,493,551,600,644,693,744,793,838,875,899],
-  solar:   [1.2,1.5,2,2.5,3.5,4.5,6.5,9,15,24,42,73,101,141,183,230,297,385,486,586,714,849,1053,1200],
-  bio:     [45,47,50,53,56,60,65,71,78,86,95,105,115,126,137,148,160,170,180,191,202,212,225,238],
-  geo:     [8,8.5,9,9.5,9.8,10,10.3,10.6,10.9,11,11.2,11.5,11.8,12,12.4,13,13.5,14,14.3,14.7,15,15.3,15.8,16],
-};
-
-const countryData = [
-  {name:'China',  flag:'🇨🇳', total:1340, solar:430, wind:375, hydro:420, pct:39.7, cagr:21.4},
-  {name:'USA',    flag:'🇺🇸', total:352,  solar:145, wind:148, hydro:103, pct:10.4, cagr:9.2},
-  {name:'Brazil', flag:'🇧🇷', total:192,  solar:28,  wind:29,  hydro:109, pct:5.7,  cagr:11.8},
-  {name:'Germany',flag:'🇩🇪', total:145,  solar:82,  wind:67,  hydro:5,   pct:4.3,  cagr:8.7},
-  {name:'India',  flag:'🇮🇳', total:187,  solar:73,  wind:44,  hydro:47,  pct:5.5,  cagr:18.4},
-  {name:'Canada', flag:'🇨🇦', total:118,  solar:5,   wind:15,  hydro:84,  pct:3.5,  cagr:5.2},
-  {name:'Spain',  flag:'🇪🇸', total:82,   solar:28,  wind:30,  hydro:17,  pct:2.4,  cagr:7.9},
-  {name:'France', flag:'🇫🇷', total:72,   solar:17,  wind:22,  hydro:25,  pct:2.1,  cagr:7.2},
-  {name:'Japan',  flag:'🇯🇵', total:97,   solar:80,  wind:5,   hydro:50,  pct:2.9,  cagr:12.1},
-  {name:'Australia',flag:'🇦🇺',total:71,  solar:35,  wind:12,  hydro:8,   pct:2.1,  cagr:14.3},
-];
-
-const forecastData = {
-  DE: {
-    hist: [42,46,51,57,67,78,93,111,126,144,157,168,178,188,196,204,209,215,218,221,225,228,230,230],
-    forecast2030: 430, forecast2035: 600,
-    label: 'Germany', kpi1: '230 GW', kpi1sub: 'Germany total RE 2023',
-    kpi2: '430 GW', kpi2sub: '+87% from 2023',
-    kpi3: '600 GW', kpi3sub: 'Target RE capacity',
-    kpi4: '3.2%', kpi4sub: 'SARIMA+LSTM MAPE',
-    color: 'rgba(0,212,255,',
-  },
-  IN: {
-    hist: [25,27,30,33,36,39,43,49,56,67,81,97,115,130,148,168,184,198,212,226,239,254,270,187],
-    forecast2030: 500, forecast2035: 850,
-    label: 'India', kpi1: '187 GW', kpi1sub: 'India total RE 2023',
-    kpi2: '500 GW', kpi2sub: '+167% from 2023',
-    kpi3: '850 GW', kpi3sub: '500 GW solar target',
-    kpi4: '4.1%', kpi4sub: 'SARIMA+LSTM MAPE',
-    color: 'rgba(16,185,129,',
-  },
-  US: {
-    hist: [114,119,125,130,138,146,157,172,188,205,223,239,252,266,280,294,305,316,326,336,342,347,350,352],
-    forecast2030: 580, forecast2035: 800,
-    label: 'USA', kpi1: '352 GW', kpi1sub: 'USA total RE 2023',
-    kpi2: '580 GW', kpi2sub: '+65% from 2023',
-    kpi3: '800 GW', kpi3sub: 'IRA-driven forecast',
-    kpi4: '2.8%', kpi4sub: 'SARIMA+LSTM MAPE',
-    color: 'rgba(245,158,11,',
-  },
-};
-
-const regressionModels = {
-  fe: [
-    {var:'ln(GDP per capita)', coef:'1.244', se:'0.089', t:'13.98', p:'<0.001', ci:'[1.069, 1.419]', stars:'***'},
-    {var:'Feed-in Tariff (dummy)', coef:'0.412', se:'0.063', t:'6.54', p:'<0.001', ci:'[0.289, 0.535]', stars:'***'},
-    {var:'RPS / Quota (dummy)', coef:'0.287', se:'0.071', t:'4.04', p:'<0.001', ci:'[0.148, 0.426]', stars:'***'},
-    {var:'ln(Energy Imports %GDP)', coef:'-0.184', se:'0.055', t:'-3.35', p:'0.001', ci:'[-0.292, -0.076]', stars:'***'},
-    {var:'CO₂ Price (USD/tonne)', coef:'0.031', se:'0.009', t:'3.44', p:'<0.001', ci:'[0.013, 0.049]', stars:'***'},
-    {var:'Trade Openness Index', coef:'0.156', se:'0.048', t:'3.25', p:'0.001', ci:'[0.062, 0.250]', stars:'***'},
-    {var:'Political Stability', coef:'0.089', se:'0.041', t:'2.17', p:'0.030', ci:'[0.009, 0.169]', stars:'**'},
-    {var:'Urbanization Rate', coef:'0.067', se:'0.038', t:'1.76', p:'0.078', ci:'[-0.007, 0.141]', stars:'*'},
-  ],
-  re: [
-    {var:'ln(GDP per capita)', coef:'1.312', se:'0.094', t:'13.96', p:'<0.001', ci:'[1.128, 1.496]', stars:'***'},
-    {var:'Feed-in Tariff (dummy)', coef:'0.398', se:'0.066', t:'6.03', p:'<0.001', ci:'[0.269, 0.527]', stars:'***'},
-    {var:'RPS / Quota (dummy)', coef:'0.271', se:'0.074', t:'3.66', p:'<0.001', ci:'[0.126, 0.416]', stars:'***'},
-    {var:'ln(Energy Imports %GDP)', coef:'-0.172', se:'0.058', t:'-2.97', p:'0.003', ci:'[-0.286, -0.058]', stars:'***'},
-    {var:'CO₂ Price (USD/tonne)', coef:'0.029', se:'0.010', t:'2.90', p:'0.004', ci:'[0.009, 0.049]', stars:'***'},
-    {var:'Trade Openness Index', coef:'0.144', se:'0.051', t:'2.82', p:'0.005', ci:'[0.044, 0.244]', stars:'***'},
-    {var:'Political Stability', coef:'0.101', se:'0.043', t:'2.35', p:'0.019', ci:'[0.017, 0.185]', stars:'**'},
-    {var:'Urbanization Rate', coef:'0.082', se:'0.040', t:'2.05', p:'0.041', ci:'[0.004, 0.160]', stars:'**'},
-  ],
-  iv: [
-    {var:'ln(GDP per capita) [IV]', coef:'1.518', se:'0.142', t:'10.69', p:'<0.001', ci:'[1.240, 1.796]', stars:'***'},
-    {var:'Feed-in Tariff (dummy)', coef:'0.445', se:'0.081', t:'5.49', p:'<0.001', ci:'[0.286, 0.604]', stars:'***'},
-    {var:'RPS / Quota (dummy)', coef:'0.314', se:'0.088', t:'3.57', p:'<0.001', ci:'[0.141, 0.487]', stars:'***'},
-    {var:'ln(Energy Imports %GDP)', coef:'-0.201', se:'0.071', t:'-2.83', p:'0.005', ci:'[-0.340, -0.062]', stars:'***'},
-    {var:'CO₂ Price (USD/tonne)', coef:'0.038', se:'0.013', t:'2.92', p:'0.004', ci:'[0.012, 0.064]', stars:'***'},
-    {var:'Trade Openness Index', coef:'0.168', se:'0.060', t:'2.80', p:'0.005', ci:'[0.050, 0.286]', stars:'***'},
-    {var:'Political Stability', coef:'0.095', se:'0.052', t:'1.83', p:'0.068', ci:'[-0.007, 0.197]', stars:'*'},
-    {var:'Urbanization Rate', coef:'0.073', se:'0.046', t:'1.59', p:'0.112', ci:'[-0.017, 0.163]', stars:''},
-  ],
-};
-
-const shapData = [
-  {feature:'GDP per Capita', val:0.340, positive: true},
-  {feature:'Feed-in Tariff Policy', val:0.281, positive: true},
-  {feature:'CO₂ / Carbon Price', val:0.198, positive: true},
-  {feature:'RPS / Quota Policy', val:0.176, positive: true},
-  {feature:'Trade Openness', val:0.142, positive: true},
-  {feature:'Energy Import Dependency', val:0.118, positive: false},
-  {feature:'Urbanization Rate', val:0.097, positive: true},
-  {feature:'Political Stability', val:0.089, positive: true},
-  {feature:'R&D Expenditure (% GDP)', val:0.076, positive: true},
-  {feature:'Population Density', val:0.061, positive: false},
-  {feature:'Interest Rates', val:0.048, positive: false},
-  {feature:'FDI Inflows', val:0.043, positive: true},
-];
-
-// ============================================================
-// CHART INIT
-// ============================================================
-
-const chartDefaults = {
-  font: { family: "'Space Mono', monospace" },
-  color: '#64748b',
-};
-Chart.defaults.font = chartDefaults.font;
-Chart.defaults.color = chartDefaults.color;
-
-const gridColor = 'rgba(30,45,71,0.8)';
-const tickColor = '#64748b';
-
-function baseOpts(title) {
-  return {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        labels: { color: '#94a3b8', font: { size: 11, family: "'Space Mono', monospace" }, padding: 16, boxWidth: 12 }
-      },
-      tooltip: {
-        backgroundColor: '#0d1420',
-        borderColor: '#1e2d47',
-        borderWidth: 1,
-        titleColor: '#00d4ff',
-        bodyColor: '#e2e8f0',
-        padding: 12,
-        titleFont: { family: "'Space Mono', monospace", size: 11 },
-        bodyFont: { family: "'Space Mono', monospace", size: 11 },
-      }
-    },
-    scales: {
-      x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10, family: "'Space Mono', monospace" } } },
-      y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10, family: "'Space Mono', monospace" } } },
-    }
-  };
-}
-
-// --- OVERVIEW ---
-
-// Global Trends
-new Chart(document.getElementById('globalTrendsChart'), {
+new Chart(document.getElementById('stackedAreaChart'), {
   type: 'line',
   data: {
-    labels: yearsStr,
+    labels: years,
     datasets: [
-      { label: 'Hydro', data: globalData.hydro, fill: true, backgroundColor: 'rgba(59,130,246,0.3)', borderColor: '#3b82f6', borderWidth: 2, tension: 0.4, pointRadius: 0 },
-      { label: 'Wind', data: globalData.wind, fill: true, backgroundColor: 'rgba(0,212,255,0.3)', borderColor: '#00d4ff', borderWidth: 2, tension: 0.4, pointRadius: 0 },
-      { label: 'Solar', data: globalData.solar, fill: true, backgroundColor: 'rgba(245,158,11,0.3)', borderColor: '#f59e0b', borderWidth: 2, tension: 0.4, pointRadius: 0 },
-      { label: 'Bioenergy', data: globalData.bio, fill: true, backgroundColor: 'rgba(16,185,129,0.3)', borderColor: '#10b981', borderWidth: 2, tension: 0.4, pointRadius: 0 },
-      { label: 'Geothermal', data: globalData.geo, fill: true, backgroundColor: 'rgba(124,58,237,0.25)', borderColor: '#7c3aed', borderWidth: 2, tension: 0.4, pointRadius: 0 },
+      { label: 'Hydro', data: [700,730,760,810,870,940,990,1030,1060,1090,1100,1130,1148], fill: true, backgroundColor: 'rgba(82,183,136,0.5)', borderColor: '#52b788', borderWidth: 1.5, tension: 0.4, pointRadius: 0 },
+      { label: 'Wind',  data: [20,45,80,140,220,330,460,600,720,810,870,950,899], fill: true, backgroundColor: 'rgba(72,149,239,0.45)', borderColor: '#4895ef', borderWidth: 1.5, tension: 0.4, pointRadius: 0 },
+      { label: 'Solar', data: [1.5,2,4,8,16,42,102,180,300,500,730,1050,1200], fill: true, backgroundColor: 'rgba(212,160,23,0.4)', borderColor: '#d4a017', borderWidth: 1.5, tension: 0.4, pointRadius: 0 },
+      { label: 'Other', data: [30,32,35,42,55,65,78,90,100,112,118,122,125], fill: true, backgroundColor: 'rgba(10,147,150,0.35)', borderColor: '#0a9396', borderWidth: 1.5, tension: 0.4, pointRadius: 0 },
     ]
   },
   options: {
-    ...baseOpts(),
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
     scales: {
-      x: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 10 } } },
-      y: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, callback: v => v + ' GW', font: { size: 10 } } }
+      x: { grid: { display: false }, border: { display: false } },
+      y: { stacked: true, grid: { color: '#f0efe9' }, border: { display: false }, ticks: { callback: v => v + ' GW' } }
     }
   }
 });
 
-// Annual additions
-const additions = years.slice(1).map((y,i) => {
-  const total = v => v[i+1]-v[i];
-  return total(globalData.hydro)+total(globalData.wind)+total(globalData.solar)+total(globalData.bio)+total(globalData.geo);
-});
-
-new Chart(document.getElementById('annualAdditionsChart'), {
+new Chart(document.getElementById('additionsChart'), {
   type: 'bar',
   data: {
-    labels: yearsStr.slice(1),
-    datasets: [{
-      label: 'Annual Additions (GW)',
-      data: additions.map(v => Math.round(v)),
-      backgroundColor: additions.map((v,i) => i > 18 ? 'rgba(0,212,255,0.8)' : 'rgba(0,212,255,0.4)'),
-      borderColor: '#00d4ff',
-      borderWidth: 1,
-      borderRadius: 3,
-    }]
+    labels: years,
+    datasets: [{ data: [55,65,80,110,145,190,220,250,280,310,340,390,420], backgroundColor: years.map((y,i) => i === years.length-1 ? '#2d6a4f' : '#b7e4c7'), borderRadius: 4, borderSkipped: false }]
   },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 9 } } },
-      y: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => v + ' GW', font: { size: 10 } } }
-    }
-  }
+  options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false }, border: { display: false } }, y: { grid: { color: '#f0efe9' }, border: { display: false }, ticks: { callback: v => v + ' GW' } } } }
 });
 
-// Tech mix donut - 2023 values
-new Chart(document.getElementById('techMixChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Hydro', 'Solar', 'Wind', 'Bioenergy', 'Geothermal'],
-    datasets: [{
-      data: [1295, 1200, 899, 238, 16],
-      backgroundColor: ['rgba(59,130,246,0.85)','rgba(245,158,11,0.85)','rgba(0,212,255,0.85)','rgba(16,185,129,0.85)','rgba(124,58,237,0.85)'],
-      borderColor: '#080c14',
-      borderWidth: 3,
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, padding: 14, boxWidth: 12 } },
-      tooltip: {
-        backgroundColor: '#0d1420', borderColor: '#1e2d47', borderWidth: 1,
-        titleColor: '#00d4ff', bodyColor: '#e2e8f0', padding: 12,
-        callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed} GW (${(ctx.parsed/3648*100).toFixed(1)}%)` }
-      }
-    }
-  }
-});
+const countryData = [
+  { flag:'🇨🇳', name:'China', gw:1340, share:39.7, cagr:'14.2%' },
+  { flag:'🇺🇸', name:'USA', gw:352, share:10.4, cagr:'8.1%' },
+  { flag:'🇧🇷', name:'Brazil', gw:183, share:5.4, cagr:'7.3%' },
+  { flag:'🇮🇳', name:'India', gw:179, share:5.3, cagr:'18.4%' },
+  { flag:'🇩🇪', name:'Germany', gw:143, share:4.2, cagr:'6.8%' },
+  { flag:'🇯🇵', name:'Japan', gw:122, share:3.6, cagr:'9.2%' },
+  { flag:'🇨🇦', name:'Canada', gw:103, share:3.1, cagr:'4.2%' },
+  { flag:'🇬🇧', name:'UK', gw:79, share:2.3, cagr:'10.4%' },
+  { flag:'🇪🇸', name:'Spain', gw:76, share:2.3, cagr:'7.1%' },
+  { flag:'🇫🇷', name:'France', gw:73, share:2.2, cagr:'5.8%' },
+];
 
-// --- COUNTRIES ---
-const topCountriesChart = new Chart(document.getElementById('topCountriesChart'), {
+new Chart(document.getElementById('topCountriesChart'), {
   type: 'bar',
   data: {
     labels: countryData.map(d => d.flag + ' ' + d.name),
-    datasets: [
-      { label: 'Solar', data: countryData.map(d => d.solar), backgroundColor: 'rgba(245,158,11,0.85)', borderRadius: 3, stack: 's' },
-      { label: 'Wind', data: countryData.map(d => d.wind), backgroundColor: 'rgba(0,212,255,0.85)', borderRadius: 3, stack: 's' },
-      { label: 'Hydro', data: countryData.map(d => d.hydro), backgroundColor: 'rgba(59,130,246,0.85)', borderRadius: 3, stack: 's' },
-    ]
+    datasets: [{ data: countryData.map(d => d.gw), backgroundColor: ['#2d6a4f','#40916c','#52b788','#74c69d','#95d5b2','#b7e4c7','#d8f3dc','#4895ef','#0a9396','#d4a017'], borderRadius: 4, borderSkipped: false }]
   },
-  options: {
-    ...baseOpts(),
-    indexAxis: 'y',
-    scales: {
-      x: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, callback: v => v+' GW', font: {size:10} } },
-      y: { stacked: true, grid: { display: false }, ticks: { color: '#e2e8f0', font: {size:11} } }
-    }
-  }
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { grid: { color: '#f0efe9' }, border: { display: false }, ticks: { callback: v => v + ' GW' } }, y: { grid: { display: false }, border: { display: false } } } }
 });
 
-const perCapitaData = [
-  { c: '🇩🇰 Denmark', v: 1420 },
-  { c: '🇳🇴 Norway', v: 1380 },
-  { c: '🇮🇸 Iceland', v: 1310 },
-  { c: '🇦🇺 Australia', v: 1180 },
-  { c: '🇩🇪 Germany', v: 1120 },
-  { c: '🇪🇸 Spain', v: 1070 },
-  { c: '🇨🇦 Canada', v: 990 },
-  { c: '🇸🇪 Sweden', v: 960 },
-  { c: '🇵🇹 Portugal', v: 920 },
-  { c: '🇬🇧 UK', v: 870 },
-];
-
-new Chart(document.getElementById('perCapitaChart'), {
-  type: 'bar',
-  data: {
-    labels: perCapitaData.map(d => d.c),
-    datasets: [{
-      label: 'Watts per person',
-      data: perCapitaData.map(d => d.v),
-      backgroundColor: perCapitaData.map((d,i) => `rgba(124,58,237,${0.5 + 0.4*(1-i/10)})`),
-      borderColor: '#7c3aed', borderWidth: 1, borderRadius: 4
-    }]
-  },
-  options: {
-    ...baseOpts(),
-    indexAxis: 'y',
-    scales: {
-      x: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => v+'W', font:{size:10} } },
-      y: { grid: { display: false }, ticks: { color: '#e2e8f0', font:{size:11} } }
-    }
-  }
-});
-
-// Populate country table
-const tableBody = document.getElementById('countryTableBody');
+const tbody = document.getElementById('countryTableBody');
 countryData.forEach((d,i) => {
-  const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-other';
-  const row = `<tr>
-    <td><span class="rank-badge ${rankClass}">${i+1}</span></td>
-    <td>${d.flag} ${d.name}</td>
-    <td>${d.total} GW<div class="bar-mini" style="width:${d.total/1340*100}%"></div></td>
-    <td>${d.solar}</td><td>${d.wind}</td><td>${d.hydro}</td>
-    <td style="color:var(--accent3)">${d.pct}%</td>
-    <td style="color:var(--accent4)">${d.cagr}%</td>
-  </tr>`;
-  tableBody.innerHTML += row;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><span class="rank-badge ${i<3?'top':''}">${i+1}</span></td><td>${d.flag} ${d.name}</td><td><b>${d.gw}</b></td><td><div class="bar-inline"><div class="bar-track"><div class="bar-fill" style="width:${d.share/40*100}%"></div></div><span style="font-size:10px;color:var(--text-muted)">${d.share}%</span></div></td><td style="color:var(--accent-green);font-weight:600">${d.cagr}</td>`;
+  tbody.appendChild(tr);
 });
 
-// --- GDP SECTION ---
-const gdpPoints = [
-  { label:'USA', x:65000, y:1080, r:352/15, color:'rgba(245,158,11,0.75)' },
-  { label:'Germany', x:48000, y:1120, r:145/15, color:'rgba(0,212,255,0.75)' },
-  { label:'China', x:12500, y:940, r:1340/15, color:'rgba(239,68,68,0.75)' },
-  { label:'India', x:2400, y:135, r:187/15, color:'rgba(16,185,129,0.75)' },
-  { label:'Norway', x:89000, y:2800, r:40/15, color:'rgba(124,58,237,0.75)' },
-  { label:'Brazil', x:8900, y:890, r:192/15, color:'rgba(59,130,246,0.75)' },
-  { label:'Denmark', x:62000, y:1420, r:12/15, color:'rgba(236,72,153,0.75)' },
-  { label:'Japan', x:39000, y:770, r:97/15, color:'rgba(245,158,11,0.6)' },
-  { label:'UK', x:46000, y:870, r:55/15, color:'rgba(0,212,255,0.6)' },
-  { label:'Spain', x:29000, y:1070, r:82/15, color:'rgba(16,185,129,0.6)' },
-];
-
-new Chart(document.getElementById('gdpScatterChart'), {
+new Chart(document.getElementById('bubbleChart'), {
   type: 'bubble',
-  data: {
-    datasets: gdpPoints.map(p => ({
-      label: p.label, data: [{ x: p.x, y: p.y, r: p.r }],
-      backgroundColor: p.color, borderColor: p.color.replace('0.75','1'), borderWidth: 1.5,
-    }))
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x: { type: 'logarithmic', grid: { color: gridColor }, ticks: { color: tickColor, callback: v => '$'+v.toLocaleString(), font:{size:9} }, title:{display:true,text:'GDP per Capita (USD, log scale)',color:'#64748b',font:{size:11}} },
-      y: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => v+'W', font:{size:10} }, title:{display:true,text:'RE per Capita (Watts)',color:'#64748b',font:{size:11}} }
-    },
-    plugins: {
-      legend: { labels: { boxWidth: 10, font:{size:10} } },
-      tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: $${ctx.parsed.x.toLocaleString()} GDP · ${ctx.parsed.y}W RE/cap` } }
-    }
-  }
+  data: { datasets: [{ data: [{x:11,y:4.2,r:18,country:'China'},{x:10.7,y:3.8,r:9,country:'India'},{x:11.5,y:4.5,r:12,country:'Brazil'},{x:12.2,y:3.2,r:9,country:'USA'},{x:12.5,y:3.6,r:7,country:'Germany'},{x:12.4,y:3.4,r:5,country:'France'},{x:12.3,y:3.8,r:5,country:'UK'},{x:10.5,y:2.8,r:4,country:'Indonesia'},{x:12.6,y:4.8,r:4,country:'Norway'},{x:12.7,y:4.2,r:3,country:'Denmark'},{x:11.8,y:3.5,r:6,country:'Japan'},{x:11.0,y:3.0,r:5,country:'Mexico'}], backgroundColor: 'rgba(82,183,136,0.35)', borderColor: '#52b788', borderWidth: 1.5 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.raw.country} · GDP: ${ctx.raw.x} · RE: ${ctx.raw.y}` } } }, scales: { x: { title: { display: true, text: 'ln(GDP per capita)', color: '#a8a59f', font:{size:10} }, grid: { color: '#f0efe9' }, border: { display: false } }, y: { title: { display: true, text: 'ln(RE capacity per capita)', color: '#a8a59f', font:{size:10} }, grid: { color: '#f0efe9' }, border: { display: false } } } }
 });
 
-// GDP vs RE growth
-new Chart(document.getElementById('gdpReGrowthChart'), {
-  type: 'scatter',
-  data: {
-    datasets: [{
-      label: 'Countries',
-      data: [{x:2.1,y:8.2},{x:6.8,y:21.4},{x:1.4,y:5.1},{x:3.2,y:11.8},{x:5.1,y:16.2},{x:7.4,y:23.1},{x:0.8,y:3.4},{x:4.3,y:14.7},{x:2.9,y:9.6},{x:1.1,y:4.2},{x:6.2,y:19.8},{x:3.7,y:12.4},{x:8.1,y:24.8},{x:5.5,y:17.3},{x:1.8,y:6.7}],
-      backgroundColor: 'rgba(0,212,255,0.6)',
-      borderColor: 'rgba(0,212,255,1)',
-      borderWidth: 1,
-      pointRadius: 6,
-    },{
-      label: 'Trend (r=0.71)',
-      data: Array.from({length:10},(_,i)=>({x:i,y:0.9+2.9*i})),
-      type: 'line', borderColor: 'rgba(124,58,237,0.8)', borderWidth: 2, borderDash: [5,4], pointRadius: 0, fill: false,
-    }]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x: { grid:{color:gridColor}, title:{display:true,text:'GDP Growth (%)',color:'#64748b',font:{size:11}}, ticks:{color:tickColor,callback:v=>v+'%',font:{size:10}} },
-      y: { grid:{color:gridColor}, title:{display:true,text:'RE Capacity Growth (%)',color:'#64748b',font:{size:11}}, ticks:{color:tickColor,callback:v=>v+'%',font:{size:10}} }
-    }
-  }
-});
+const forecastData = {
+  Germany: { hist:[10,20,33,45,62,80,100,115,125,145,160,195,230], fore:[null,null,null,null,null,null,null,null,null,null,null,null,230,265,305,350,395,430,480,530,570,600], upper:[null,null,null,null,null,null,null,null,null,null,null,null,230,285,335,390,445,490,550,610,665,700], lower:[null,null,null,null,null,null,null,null,null,null,null,null,230,245,275,310,345,370,410,450,475,500], current:'230 GW', fc2030:'430 GW', fc2030p:'+87%', fc2035:'600 GW', mape:'3.2%', sub:'Germany total RE' },
+  India:   { hist:[4,6,9,14,22,35,58,89,132,168,185,210,179], fore:[null,null,null,null,null,null,null,null,null,null,null,null,179,220,280,350,430,510,600,700,800,900], upper:[null,null,null,null,null,null,null,null,null,null,null,null,179,240,310,390,490,590,700,820,950,1080], lower:[null,null,null,null,null,null,null,null,null,null,null,null,179,200,250,310,370,430,500,580,650,720], current:'179 GW', fc2030:'510 GW', fc2030p:'+185%', fc2035:'900 GW', mape:'4.1%', sub:'India total RE' },
+  USA:     { hist:[90,100,115,130,155,185,215,250,280,305,325,345,352], fore:[null,null,null,null,null,null,null,null,null,null,null,null,352,400,450,510,575,640,705,770,835,900], upper:[null,null,null,null,null,null,null,null,null,null,null,null,352,430,495,570,650,730,810,900,975,1060], lower:[null,null,null,null,null,null,null,null,null,null,null,null,352,370,405,450,500,550,600,640,695,740], current:'352 GW', fc2030:'640 GW', fc2030p:'+82%', fc2035:'900 GW', mape:'2.9%', sub:'USA total RE' }
+};
 
-// Income group chart
-new Chart(document.getElementById('incomeGroupChart'), {
-  type: 'bar',
-  data: {
-    labels: ['Low Income', 'Lower-Middle', 'Upper-Middle', 'High Income'],
-    datasets: [{
-      label: 'Avg RE Capacity (GW)',
-      data: [1.2, 8.4, 42.1, 28.7],
-      backgroundColor: ['rgba(239,68,68,0.7)','rgba(245,158,11,0.7)','rgba(16,185,129,0.7)','rgba(0,212,255,0.7)'],
-      borderRadius: 6,
-    }]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x: { grid:{display:false}, ticks:{color:tickColor,font:{size:10}} },
-      y: { grid:{color:gridColor}, ticks:{color:tickColor,callback:v=>v+' GW',font:{size:10}} }
-    }
-  }
-});
+const forecastYears = [2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2035];
+let forecastChart;
 
-// --- FORECASTING ---
-let forecastChart = null;
-let currentCountry = 'DE';
-
-function buildForecastData(code) {
-  const d = forecastData[code];
-  const histYears = yearsStr;
-  const futureYears = ['2024','2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035'];
-  const allLabels = [...histYears, ...futureYears];
-
-  const base2023 = d.hist[23];
-  const target2030 = d.forecast2030;
-  const target2035 = d.forecast2035;
-
-  // Simple interpolation for forecast
-  const forecastVals = futureYears.map((y,i) => {
-    const t = (i+1)/12;
-    return Math.round(base2023 + (target2030 - base2023) * Math.min(t/((2030-2023)/12), 1) + Math.max(0,(target2035-target2030)*Math.max(0,(t-7/12)/5)));
-  });
-
-  const upper = forecastVals.map((v,i) => Math.round(v * (1 + 0.06 + 0.008*i)));
-  const lower = forecastVals.map((v,i) => Math.round(v * (1 - 0.04 - 0.006*i)));
-
-  return {
-    labels: allLabels,
-    hist: d.hist,
-    forecast: forecastVals,
-    upper, lower,
-    color: d.color,
-  };
-}
-
-function renderForecastChart(code) {
-  const d = forecastData[code];
-  const fd = buildForecastData(code);
-  const col = d.color;
-
+function buildForecastChart(country) {
+  const d = forecastData[country];
   if (forecastChart) forecastChart.destroy();
-
   forecastChart = new Chart(document.getElementById('forecastChart'), {
     type: 'line',
-    data: {
-      labels: fd.labels,
-      datasets: [
-        {
-          label: 'Historical',
-          data: [...fd.hist, ...Array(12).fill(null)],
-          borderColor: col+'1)', backgroundColor: col+'0.05)',
-          borderWidth: 2.5, pointRadius: 0, fill: false, tension: 0.4,
-        },
-        {
-          label: 'Forecast',
-          data: [...Array(24).fill(null), ...fd.forecast],
-          borderColor: col+'0.9)', backgroundColor: col+'0.15)',
-          borderWidth: 2.5, borderDash: [6,3], pointRadius: 3, fill: '+1', tension: 0.4,
-        },
-        {
-          label: '95% CI Upper',
-          data: [...Array(24).fill(null), ...fd.upper],
-          borderColor: col+'0.3)', borderWidth: 1, borderDash: [3,3],
-          pointRadius: 0, fill: false,
-        },
-        {
-          label: '95% CI Lower',
-          data: [...Array(24).fill(null), ...fd.lower],
-          borderColor: col+'0.3)', backgroundColor: col+'0.08)',
-          borderWidth: 1, borderDash: [3,3], pointRadius: 0, fill: '-1',
-        },
-      ]
-    },
-    options: {
-      ...baseOpts(),
-      scales: {
-        x: { grid:{color:gridColor}, ticks:{color:tickColor,font:{size:10}} },
-        y: { grid:{color:gridColor}, ticks:{color:tickColor,callback:v=>v+' GW',font:{size:10}} }
-      }
-    }
+    data: { labels: forecastYears, datasets: [
+      { label: 'Historical', data: d.hist.concat(new Array(forecastYears.length - d.hist.length).fill(null)), borderColor: '#2d6a4f', borderWidth: 2, pointRadius: 0, tension: 0.4, fill: false },
+      { label: 'Forecast', data: d.fore, borderColor: '#4895ef', borderWidth: 2, borderDash: [5,3], pointRadius: 0, tension: 0.4, fill: false },
+      { label: 'Upper CI', data: d.upper, borderColor: 'rgba(72,149,239,0.2)', borderWidth: 1, pointRadius: 0, tension: 0.4, fill: '+1', backgroundColor: 'rgba(72,149,239,0.08)' },
+      { label: 'Lower CI', data: d.lower, borderColor: 'rgba(72,149,239,0.2)', borderWidth: 1, pointRadius: 0, tension: 0.4, fill: false },
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { x: { grid: { display: false }, border: { display: false } }, y: { grid: { color: '#f0efe9' }, border: { display: false }, ticks: { callback: v => v + ' GW' } } } }
   });
+  document.getElementById('forecastTitle').textContent = `${country}: RE Capacity Forecast (2000–2035)`;
+  document.getElementById('fc-current').textContent = d.current;
+  document.getElementById('fc-country').textContent = d.sub;
+  document.getElementById('fc-2030').textContent = d.fc2030;
+  document.getElementById('fc-2030-pct').textContent = d.fc2030p + ' from 2023';
+  document.getElementById('fc-2035').textContent = d.fc2035;
+  document.getElementById('fc-mape').textContent = d.mape;
+}
+buildForecastChart('Germany');
+
+function switchCountry(country, btn) {
+  document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildForecastChart(country);
 }
 
-renderForecastChart('DE');
-
-function setCountry(code) {
-  currentCountry = code;
-  const d = forecastData[code];
-  document.getElementById('fkpi1').textContent = d.kpi1;
-  document.getElementById('fkpi1sub').textContent = d.kpi1sub;
-  document.getElementById('fkpi2').textContent = d.kpi2;
-  document.getElementById('fkpi2sub').textContent = d.kpi2sub;
-  document.getElementById('fkpi3').textContent = d.kpi3;
-  document.getElementById('fkpi3sub').textContent = d.kpi3sub;
-  document.getElementById('fkpi4').textContent = d.kpi4;
-  document.getElementById('fkpi4sub').textContent = d.kpi4sub;
-  document.getElementById('forecastChartTitle').textContent = `${d.label}: RE Capacity Forecast (2000–2035)`;
-
-  document.querySelectorAll('.country-btn').forEach(b => {
-    b.className = 'country-btn';
-  });
-  const map = {DE:'active-de',IN:'active-in',US:'active-us'};
-  document.querySelectorAll('.country-btn')[['DE','IN','US'].indexOf(code)].classList.add(map[code]);
-
-  renderForecastChart(code);
-}
-
-// Model comparison
-new Chart(document.getElementById('modelCompChart'), {
+new Chart(document.getElementById('coefChart'), {
   type: 'bar',
-  data: {
-    labels: ['ARIMA', 'SARIMA', 'LSTM', 'Prophet', 'Ensemble'],
-    datasets: [
-      { label: 'Germany', data: [5.8,4.1,3.8,4.4,3.2], backgroundColor: 'rgba(0,212,255,0.75)', borderRadius:3 },
-      { label: 'India', data: [7.1,5.4,4.9,5.2,4.1], backgroundColor: 'rgba(16,185,129,0.75)', borderRadius:3 },
-      { label: 'USA', data: [4.2,3.5,3.3,3.8,2.8], backgroundColor: 'rgba(245,158,11,0.75)', borderRadius:3 },
-    ]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x: { grid:{display:false}, ticks:{color:tickColor,font:{size:10}} },
-      y: { grid:{color:gridColor}, ticks:{color:tickColor,callback:v=>v+'%',font:{size:10}}, title:{display:true,text:'MAPE (%)',color:'#64748b',font:{size:11}} }
-    }
-  }
+  data: { labels: ['ln(GDP/cap)','Feed-in Tariff','RPS','Carbon Price','Trade Open.','Pol. Stability','Fossil Rents'], datasets: [{ data: [1.24,0.68,0.45,0.31,0.19,0.14,-0.22], backgroundColor: d => d.raw < 0 ? 'rgba(193,18,31,0.2)' : 'rgba(82,183,136,0.3)', borderColor: d => d.raw < 0 ? '#c1121f' : '#52b788', borderWidth: 1.5, borderRadius: 4, borderSkipped: false }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { grid: { color: '#f0efe9' }, border: { display: false }, ticks: { callback: v => v.toFixed(1) } }, y: { grid: { display: false }, border: { display: false } } } }
 });
 
-// Three country
-new Chart(document.getElementById('threeCountryChart'), {
-  type: 'line',
-  data: {
-    labels: [...yearsStr, '2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035'],
-    datasets: [
-      {
-        label: '🇩🇪 Germany', tension:0.4, pointRadius:0, borderWidth:2,
-        borderColor:'#00d4ff',
-        data: [18,20,22,25,29,34,40,48,55,63,68,73,77,82,85,88,91,94,96,98,98,100,100,100, 105,113,122,131,143,156,170,186,202,220,239,261],
-      },
-      {
-        label: '🇮🇳 India', tension:0.4, pointRadius:0, borderWidth:2,
-        borderColor:'#10b981',
-        data: [13,14,16,18,19,21,23,26,30,36,43,52,62,70,79,90,98,106,113,121,128,136,144,100, 107,116,129,144,162,183,207,235,267,305,348,401],
-      },
-      {
-        label: '🇺🇸 USA', tension:0.4, pointRadius:0, borderWidth:2,
-        borderColor:'#f59e0b',
-        data: [32,34,36,37,39,41,45,49,53,58,63,68,72,76,80,84,87,90,93,95,97,99,99,100, 105,112,121,133,148,163,181,199,217,238,262,288],
-      },
-    ]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x: { grid:{color:gridColor}, ticks:{color:tickColor,font:{size:9}} },
-      y: { grid:{color:gridColor}, ticks:{color:tickColor,callback:v=>v,font:{size:10}}, title:{display:true,text:'Index (2023 = 100)',color:'#64748b',font:{size:11}} }
-    }
-  }
-});
-
-// --- PANEL REGRESSION ---
-let coefChart = null;
-let residualChart = null;
-let marginalChart = null;
-
-function renderRegression(model) {
-  const data = regressionModels[model];
-  const modelLabels = {
-    fe: 'Fixed Effects · Driscoll-Kraay SE · N = 195 countries · T = 23 years',
-    re: 'Random Effects · GLS · Hausman χ² = 28.4 (p<0.001 → prefer FE)',
-    iv: 'IV / 2SLS · Instruments: Lagged GDP, Fossil Fuel Reserves'
-  };
-
-  document.getElementById('modelLabel').textContent = modelLabels[model];
-
-  const tbody = document.getElementById('regTableBody');
-  tbody.innerHTML = '';
-  data.forEach(row => {
-    const starClass = row.stars==='***'?'sig-hi':row.stars==='**'?'sig-star':'';
-    tbody.innerHTML += `<tr>
-      <td>${row.var}</td>
-      <td class="${parseFloat(row.coef)>0?'sig-hi':row.coef==='-'?'':'sig-star'}">${row.coef} <span class="${starClass}">${row.stars}</span></td>
-      <td>${row.se}</td>
-      <td>${row.t}</td>
-      <td>${row.p}</td>
-      <td style="color:var(--muted);font-size:0.65rem">${row.ci}</td>
-    </tr>`;
-  });
-
-  // Coef plot
-  if (coefChart) coefChart.destroy();
-  coefChart = new Chart(document.getElementById('coefPlot'), {
-    type: 'bar',
-    data: {
-      labels: data.map(d => d.var.split('(')[0].trim().substring(0,22)),
-      datasets: [{
-        label: 'Coefficient',
-        data: data.map(d => parseFloat(d.coef)),
-        backgroundColor: data.map(d => parseFloat(d.coef)>0 ? 'rgba(16,185,129,0.7)' : 'rgba(239,68,68,0.7)'),
-        borderColor: data.map(d => parseFloat(d.coef)>0 ? '#10b981' : '#ef4444'),
-        borderWidth: 1, borderRadius: 3,
-        error: data.map(d => parseFloat(d.se)*1.96),
-      }]
-    },
-    options: {
-      ...baseOpts(),
-      indexAxis: 'y',
-      scales: {
-        x: { grid:{color:gridColor}, ticks:{color:tickColor,font:{size:10}} },
-        y: { grid:{display:false}, ticks:{color:tickColor,font:{size:9}} }
-      }
-    }
-  });
-}
-
-renderRegression('fe');
-
-function setModel(model) {
-  document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  renderRegression(model);
-}
-
-// Residuals
-new Chart(document.getElementById('residualPlot'), {
-  type: 'scatter',
-  data: {
-    datasets: [{
-      label: 'Fitted vs Residuals',
-      data: Array.from({length:50},(_,i) => ({ x: Math.random()*4-0.5, y: (Math.random()-0.5)*0.4 })),
-      backgroundColor: 'rgba(0,212,255,0.5)', borderColor: 'rgba(0,212,255,0.8)', borderWidth: 1, pointRadius: 5,
-    },{
-      label: 'Zero line',
-      data: [{x:-1,y:0},{x:5,y:0}],
-      type: 'line', borderColor:'rgba(245,158,11,0.6)', borderDash:[4,4], pointRadius:0, fill:false, borderWidth:1.5,
-    }]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:10}},title:{display:true,text:'Fitted Values',color:'#64748b',font:{size:11}}},
-      y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:10}},title:{display:true,text:'Residuals',color:'#64748b',font:{size:11}}}
-    }
-  }
-});
-
-// Marginal effects
-new Chart(document.getElementById('marginalEffectsChart'), {
-  type: 'line',
-  data: {
-    labels: ['2000s','2005s','2010s','2015s','2020s'],
-    datasets: [
-      { label:'GDP Elasticity', data:[0.88,1.02,1.18,1.31,1.44], borderColor:'#00d4ff', backgroundColor:'rgba(0,212,255,0.1)', fill:true, borderWidth:2.5, tension:0.4, pointRadius:5, pointBackgroundColor:'#00d4ff' },
-      { label:'Policy Effect', data:[0.18,0.24,0.32,0.38,0.41], borderColor:'#10b981', backgroundColor:'rgba(16,185,129,0.1)', fill:true, borderWidth:2.5, tension:0.4, pointRadius:5, pointBackgroundColor:'#10b981' },
-    ]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x:{grid:{display:false},ticks:{color:tickColor,font:{size:11}}},
-      y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:10}}}
-    }
-  }
-});
-
-// --- SHAP ---
-const shapContainer = document.getElementById('shapBars');
-shapData.forEach((d, i) => {
-  const pct = (d.val / shapData[0].val * 100).toFixed(1);
-  const color = d.positive ? 'linear-gradient(90deg, rgba(16,185,129,0.8), rgba(0,212,255,0.6))' : 'linear-gradient(90deg, rgba(239,68,68,0.8), rgba(245,158,11,0.5))';
-  shapContainer.innerHTML += `
-    <div class="shap-row">
-      <div class="shap-label">${i+1}. ${d.feature}</div>
-      <div class="shap-bar-wrap">
-        <div class="shap-bar-fill" style="width:${pct}%; background:${color};"></div>
-      </div>
-      <div class="shap-val">${d.val.toFixed(3)}</div>
-    </div>`;
-});
-
-// Feature comparison
-new Chart(document.getElementById('featureCompChart'), {
-  type: 'radar',
-  data: {
-    labels: shapData.slice(0,8).map(d => d.feature.split(' ')[0]),
-    datasets: [
-      { label:'XGBoost', data: shapData.slice(0,8).map(d => d.val), borderColor:'#00d4ff', backgroundColor:'rgba(0,212,255,0.15)', borderWidth:2, pointBackgroundColor:'#00d4ff', pointRadius:4 },
-      { label:'Random Forest', data: shapData.slice(0,8).map((d,i) => d.val * (0.85 + Math.random()*0.3)), borderColor:'#10b981', backgroundColor:'rgba(16,185,129,0.1)', borderWidth:2, pointBackgroundColor:'#10b981', pointRadius:4 },
-      { label:'Gradient Boost', data: shapData.slice(0,8).map((d,i) => d.val * (0.9 + Math.random()*0.2)), borderColor:'#f59e0b', backgroundColor:'rgba(245,158,11,0.1)', borderWidth:2, pointBackgroundColor:'#f59e0b', pointRadius:4 },
-    ]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      r: {
-        grid: { color: 'rgba(30,45,71,0.8)' },
-        ticks: { display: false },
-        pointLabels: { color: '#94a3b8', font: { size: 10, family:"'Space Mono',monospace" } },
-        angleLines: { color: 'rgba(30,45,71,0.8)' }
-      }
-    },
-    plugins: {
-      legend: { labels: { color:'#94a3b8', font:{size:11}, boxWidth:10 } }
-    }
-  }
-});
-
-// SHAP direction
-new Chart(document.getElementById('shapDirectionChart'), {
+new Chart(document.getElementById('shapChart'), {
   type: 'bar',
-  data: {
-    labels: shapData.map(d => d.feature.split(' ')[0]),
-    datasets: [{
-      label: 'SHAP Impact Direction',
-      data: shapData.map(d => d.positive ? d.val : -d.val),
-      backgroundColor: shapData.map(d => d.positive ? 'rgba(16,185,129,0.75)' : 'rgba(239,68,68,0.75)'),
-      borderColor: shapData.map(d => d.positive ? '#10b981' : '#ef4444'),
-      borderWidth: 1, borderRadius: 4,
-    }]
-  },
-  options: {
-    ...baseOpts(),
-    indexAxis: 'y',
-    scales: {
-      x: { grid:{color:gridColor}, ticks:{color:tickColor,font:{size:9}}, title:{display:true,text:'Mean SHAP Value',color:'#64748b',font:{size:11}} },
-      y: { grid:{display:false}, ticks:{color:tickColor,font:{size:9}} }
-    }
-  }
+  data: { labels: ['GDP per capita','Feed-in Tariff','Carbon Price','RPS Policy','Trade Open.','Urbanization','Energy Intensity','Population'], datasets: [{ data: [0.34,0.28,0.21,0.18,0.14,0.11,0.09,0.07], backgroundColor: ['#2d6a4f','#40916c','#52b788','#74c69d','#95d5b2','#b7e4c7','#d8f3dc','#e9f5ec'], borderRadius: 4, borderSkipped: false }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { grid: { color: '#f0efe9' }, border: { display: false }, title: { display: true, text: 'Mean |SHAP value|', color: '#a8a59f', font: {size:10} } }, y: { grid: { display: false }, border: { display: false } } } }
 });
 
-// SHAP interaction
-new Chart(document.getElementById('shapInteractionChart'), {
+new Chart(document.getElementById('modelChart'), {
   type: 'bar',
-  data: {
-    labels: ['Q1 (Low GDP)', 'Q2', 'Q3', 'Q4 (High GDP)'],
-    datasets: [
-      { label: 'No Policy', data:[0.08,0.14,0.22,0.31], backgroundColor:'rgba(100,116,139,0.6)', borderRadius:4 },
-      { label: 'FIT Only', data:[0.14,0.22,0.34,0.48], backgroundColor:'rgba(245,158,11,0.7)', borderRadius:4 },
-      { label: 'RPS Only', data:[0.11,0.19,0.29,0.41], backgroundColor:'rgba(0,212,255,0.7)', borderRadius:4 },
-      { label: 'FIT + RPS', data:[0.19,0.31,0.49,0.74], backgroundColor:'rgba(16,185,129,0.7)', borderRadius:4 },
-    ]
-  },
-  options: {
-    ...baseOpts(),
-    scales: {
-      x:{grid:{display:false},ticks:{color:tickColor,font:{size:10}}},
-      y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:10}},title:{display:true,text:'SHAP Value',color:'#64748b',font:{size:11}}}
-    }
-  }
+  data: { labels: ['XGBoost\n+ RF','XGBoost','Random\nForest','Gradient\nBoosting','SARIMA-\nLSTM','Ridge\nRegression'], datasets: [{ data: [0.891,0.874,0.862,0.851,0.823,0.742], backgroundColor: (ctx) => ctx.dataIndex === 0 ? '#2d6a4f' : '#b7e4c7', borderRadius: 4, borderSkipped: false }] },
+  options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false }, border: { display: false } }, y: { grid: { color: '#f0efe9' }, border: { display: false }, min: 0.6, ticks: { callback: v => v.toFixed(2) } } } }
 });
 
-// ============================================================
-// TAB NAVIGATION
-// ============================================================
-function switchTab(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  event.target.classList.add('active');
-}
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
 </script>
 </body>
 </html>
