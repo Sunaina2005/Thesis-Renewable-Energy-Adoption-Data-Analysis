@@ -1,4 +1,4 @@
-# Modelling and Forecasting Global Renewable Energy Adoption
+# Renewable Energy Data Engineering Pipeline
 
 *Master's Thesis - IU International University of Applied Sciences*  
 *Author:* Sunaina Manjunath  
@@ -20,9 +20,9 @@
 
 ## Overview
 
-This thesis analyzes renewable energy adoption patterns across 211 countries from 2000-2023, combining econometric analysis with machine learning to both explain drivers and predict future trends.
+End-to-end Python ETL pipeline integrating data from IRENA, World Bank, and Energy Institute across 211 countries — built as part of my M.Sc. Computer Science thesis at IU Berlin.
 
-*Key Question:* Why do some countries adopt solar and wind energy rapidly while others lag behind, despite similar climate commitments?
+This project demonstrates production-quality pipeline architecture: modular ingestion, data cleaning, transformation, automated validation, and interactive dashboard delivery hosted on GitHub Pages.
 
 ---
 
